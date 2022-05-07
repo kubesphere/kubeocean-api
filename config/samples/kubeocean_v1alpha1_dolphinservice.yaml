@@ -1,0 +1,6 @@
+apiVersion: kubeocean.kubesphere.io/v1alpha1
+kind: DolphinService
+metadata:
+  name: dolphinservice-sample
+spec:
+  # TODO(user): Add fields here

@@ -1,0 +1,34 @@
+domain: kubesphere.io
+layout:
+- go.kubebuilder.io/v3
+multigroup: true
+projectName: kubeocean-api
+repo: github.com/kubesphere/kubeocean-api
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: kubesphere.io
+  group: kubeocean
+  kind: DolphinCluster
+  path: github.com/kubesphere/kubeocean2/apis/kubeocean/v1alpha1
+  version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: kubesphere.io
+  group: kubeocean.kubesphere.io
+  kind: VirtualClusterSpecification
+  path: github.com/kubesphere/kubeocean2/apis/kubeocean/v1alpha1
+  version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: kubesphere.io
+  group: kubeocean
+  kind: DolphinService
+  path: github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1
+  version: v1alpha1
+version: "3"
