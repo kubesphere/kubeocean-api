@@ -94,8 +94,10 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		// Group=kubeocean.kubesphere.io, Version=v1alpha1
 	case v1alpha1.SchemeGroupVersion.WithResource("dolphinclusters"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().DolphinClusters().Informer()}, nil
-	case v1alpha1.SchemeGroupVersion.WithResource("virtualclusterspecifications"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().VirtualClusterSpecifications().Informer()}, nil
+	case v1alpha1.SchemeGroupVersion.WithResource("dolphinclusterspecifications"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().DolphinClusterSpecifications().Informer()}, nil
+	case v1alpha1.SchemeGroupVersion.WithResource("dolphinservices"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().DolphinServices().Informer()}, nil
 
 	}
 

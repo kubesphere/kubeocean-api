@@ -1,6 +1,5 @@
 package v1alpha1
 
-//	DolphinCluster related labels
 const (
 	DolphinClusterNameLabel          = "kubeocean.kubesphere.io/dolphincluster"
 	DolphinClusterIDLabel            = "kubeocean.kubesphere.io/dolphincluster-id"
@@ -20,4 +19,7 @@ const (
 	NodeCpuCurrentLabel         = "kubeocean.kubesphere.io/node-cpu-current"
 	NodeMemoryCurrentLabel      = "kubeocean.kubesphere.io/node-memory-current"
 	NodeDiskSizeLabel           = "kubeocean.kubesphere.io/node-disk-size"
+
+	ResourceManageByLabel  = "vcluster.loft.sh/managed-by"
+	ResourceNamespaceLabel = "vcluster.loft.sh/namespace"
 )

@@ -19,4 +19,6 @@ package v1alpha1
 
 type DolphinClusterExpansion interface{}
 
-type VirtualClusterSpecificationExpansion interface{}
+type DolphinClusterSpecificationExpansion interface{}
+
+type DolphinServiceExpansion interface{}

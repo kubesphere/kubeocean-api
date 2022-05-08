@@ -20,7 +20,7 @@ resources:
   controller: true
   domain: kubesphere.io
   group: kubeocean.kubesphere.io
-  kind: VirtualClusterSpecification
+  kind: DolphinClusterSpecification
   path: github.com/kubesphere/kubeocean2/apis/kubeocean/v1alpha1
   version: v1alpha1
 - api:

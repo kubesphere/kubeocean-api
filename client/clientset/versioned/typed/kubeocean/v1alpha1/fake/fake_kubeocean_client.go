@@ -31,8 +31,12 @@ func (c *FakeKubeoceanV1alpha1) DolphinClusters() v1alpha1.DolphinClusterInterfa
 	return &FakeDolphinClusters{c}
 }
 
-func (c *FakeKubeoceanV1alpha1) VirtualClusterSpecifications() v1alpha1.VirtualClusterSpecificationInterface {
-	return &FakeVirtualClusterSpecifications{c}
+func (c *FakeKubeoceanV1alpha1) DolphinClusterSpecifications() v1alpha1.DolphinClusterSpecificationInterface {
+	return &FakeDolphinClusterSpecifications{c}
+}
+
+func (c *FakeKubeoceanV1alpha1) DolphinServices() v1alpha1.DolphinServiceInterface {
+	return &FakeDolphinServices{c}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

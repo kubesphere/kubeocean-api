@@ -24,9 +24,9 @@ import (
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
 type Service struct {
-	Namespace string
-	Name      string
-	Port      int32
+	Namespace string `json:"namespace,omitempty"`
+	Name      string `json:"name,omitempty"`
+	Port      int32  `json:"port,omitempty"`
 }
 
 // DolphinServiceSpec defines the desired state of DolphinService
@@ -34,16 +34,22 @@ type DolphinServiceSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	DolphinCluster string
-	Service        Service
+	DolphinCluster string  `json:"dolphinCluster,omitempty"`
+	Service        Service `json:"service,omitempty"`
 }
 
 // DolphinServiceStatus defines the observed state of DolphinService
 type DolphinServiceStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	VisitAddr   string `json:"visitAddr,omitempty"`
+	IngressName string `json:"ingressName,omitempty"`
 }
 
+// +genclient
+// +genclient:nonNamespaced
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
@@ -56,6 +62,7 @@ type DolphinService struct {
 	Status DolphinServiceStatus `json:"status,omitempty"`
 }
 
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 //+kubebuilder:object:root=true
 
 // DolphinServiceList contains a list of DolphinService

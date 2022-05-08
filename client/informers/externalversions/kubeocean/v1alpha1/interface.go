@@ -25,8 +25,10 @@ import (
 type Interface interface {
 	// DolphinClusters returns a DolphinClusterInformer.
 	DolphinClusters() DolphinClusterInformer
-	// VirtualClusterSpecifications returns a VirtualClusterSpecificationInformer.
-	VirtualClusterSpecifications() VirtualClusterSpecificationInformer
+	// DolphinClusterSpecifications returns a DolphinClusterSpecificationInformer.
+	DolphinClusterSpecifications() DolphinClusterSpecificationInformer
+	// DolphinServices returns a DolphinServiceInformer.
+	DolphinServices() DolphinServiceInformer
 }
 
 type version struct {
@@ -45,7 +47,12 @@ func (v *version) DolphinClusters() DolphinClusterInformer {
 	return &dolphinClusterInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
-// VirtualClusterSpecifications returns a VirtualClusterSpecificationInformer.
-func (v *version) VirtualClusterSpecifications() VirtualClusterSpecificationInformer {
-	return &virtualClusterSpecificationInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+// DolphinClusterSpecifications returns a DolphinClusterSpecificationInformer.
+func (v *version) DolphinClusterSpecifications() DolphinClusterSpecificationInformer {
+	return &dolphinClusterSpecificationInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+}
+
+// DolphinServices returns a DolphinServiceInformer.
+func (v *version) DolphinServices() DolphinServiceInformer {
+	return &dolphinServiceInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }

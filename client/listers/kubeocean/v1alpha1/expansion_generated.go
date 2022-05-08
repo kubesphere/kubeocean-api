@@ -21,6 +21,10 @@ package v1alpha1
 // DolphinClusterLister.
 type DolphinClusterListerExpansion interface{}
 
-// VirtualClusterSpecificationListerExpansion allows custom methods to be added to
-// VirtualClusterSpecificationLister.
-type VirtualClusterSpecificationListerExpansion interface{}
+// DolphinClusterSpecificationListerExpansion allows custom methods to be added to
+// DolphinClusterSpecificationLister.
+type DolphinClusterSpecificationListerExpansion interface{}
+
+// DolphinServiceListerExpansion allows custom methods to be added to
+// DolphinServiceLister.
+type DolphinServiceListerExpansion interface{}

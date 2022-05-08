@@ -31,58 +31,58 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// VirtualClusterSpecificationInformer provides access to a shared informer and lister for
-// VirtualClusterSpecifications.
-type VirtualClusterSpecificationInformer interface {
+// DolphinServiceInformer provides access to a shared informer and lister for
+// DolphinServices.
+type DolphinServiceInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1alpha1.VirtualClusterSpecificationLister
+	Lister() v1alpha1.DolphinServiceLister
 }
 
-type virtualClusterSpecificationInformer struct {
+type dolphinServiceInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 }
 
-// NewVirtualClusterSpecificationInformer constructs a new informer for VirtualClusterSpecification type.
+// NewDolphinServiceInformer constructs a new informer for DolphinService type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewVirtualClusterSpecificationInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredVirtualClusterSpecificationInformer(client, resyncPeriod, indexers, nil)
+func NewDolphinServiceInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredDolphinServiceInformer(client, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredVirtualClusterSpecificationInformer constructs a new informer for VirtualClusterSpecification type.
+// NewFilteredDolphinServiceInformer constructs a new informer for DolphinService type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredVirtualClusterSpecificationInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredDolphinServiceInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.KubeoceanV1alpha1().VirtualClusterSpecifications().List(context.TODO(), options)
+				return client.KubeoceanV1alpha1().DolphinServices().List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.KubeoceanV1alpha1().VirtualClusterSpecifications().Watch(context.TODO(), options)
+				return client.KubeoceanV1alpha1().DolphinServices().Watch(context.TODO(), options)
 			},
 		},
-		&kubeoceanv1alpha1.VirtualClusterSpecification{},
+		&kubeoceanv1alpha1.DolphinService{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *virtualClusterSpecificationInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredVirtualClusterSpecificationInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *dolphinServiceInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredDolphinServiceInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *virtualClusterSpecificationInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&kubeoceanv1alpha1.VirtualClusterSpecification{}, f.defaultInformer)
+func (f *dolphinServiceInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&kubeoceanv1alpha1.DolphinService{}, f.defaultInformer)
 }
 
-func (f *virtualClusterSpecificationInformer) Lister() v1alpha1.VirtualClusterSpecificationLister {
-	return v1alpha1.NewVirtualClusterSpecificationLister(f.Informer().GetIndexer())
+func (f *dolphinServiceInformer) Lister() v1alpha1.DolphinServiceLister {
+	return v1alpha1.NewDolphinServiceLister(f.Informer().GetIndexer())
 }

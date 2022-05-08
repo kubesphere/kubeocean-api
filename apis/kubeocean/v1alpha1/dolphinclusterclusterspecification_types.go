@@ -22,8 +22,8 @@ import (
 
 type Specification struct {
 	Name                                                   string `json:"name,omitempty"`
-	WaitToAssignVirtualClusterThreshold                    *int32 `json:"waitToAssigVirtualClusterThreshold,omitempty"`
-	WaitToAssignKubesphereInstalledVirtualClusterThreshold *int32 `json:"waitToAssigKubesphereInstalledVirtualClusterThreshold,omitempty"`
+	WaitToAssignDolphinClusterThreshold                    *int32 `json:"waitToAssigDolphinClusterThreshold,omitempty"`
+	WaitToAssignKubesphereInstalledDolphinClusterThreshold *int32 `json:"waitToAssigKubesphereInstalledDolphinClusterThreshold,omitempty"`
 	WaitToConvertWorkerNodeThreshold                       *int32 `json:"waitToAssigWorkerNodeThreshold,omitempty"`
 	CpuCurrent                                             *int32 `json:"cpuCurrent,omitempty"`
 	MemoryCurrent                                          *int32 `json:"memoryCurrent,omitempty"`
@@ -38,14 +38,14 @@ type ControlPlaneSpecification struct {
 	Replicas      *int32 `json:"replicas,omitempty"`
 }
 
-// VirtualClusterSpecificationSpec defines the desired state of VirtualClusterSpecification
-type VirtualClusterSpecificationSpec struct {
+// DolphinClusterSpecificationSpec defines the desired state of DolphinclusterClusterSpecification
+type DolphinClusterSpecificationSpec struct {
 	ControlPlaneSpecification ControlPlaneSpecification `json:"controlPlaneSpecification,omitempty"`
 	Specifications            []Specification           `json:"specifications,omitempty"`
 	ClusterMaxNodeCount       *int32                    `json:"clusterMaxNodeCount,omitempty"`
 }
 
-type VirtualClusterPool struct {
+type DolphinClusterPool struct {
 	Name        string   `json:"name,omitempty"`
 	NotAssigned []string `json:"notAssigned,omitempty"`
 }
@@ -56,10 +56,10 @@ type WorkerNodePool struct {
 	NotConverted []string `json:"notConverted,omitempty"`
 }
 
-// VirtualClusterSpecificationStatus defines the observed state of VirtualClusterSpecification
-type VirtualClusterSpecificationStatus struct {
-	VirtualClusterPool                    []VirtualClusterPool `json:"virtualClusterPool,omitempty"`
-	KubesphereInstalledVirtualClusterPool []VirtualClusterPool `json:"kubesphereInstalledVirtualClusterPool,omitempty"`
+// DolphinClusterSpecificationStatus defines the observed state of DolphinClusterSpecification
+type DolphinClusterSpecificationStatus struct {
+	DolphinClusterPool                    []DolphinClusterPool `json:"dolphinClusterPool,omitempty"`
+	KubesphereInstalledDolphinClusterPool []DolphinClusterPool `json:"kubesphereInstalledDolphinClusterPool,omitempty"`
 	WorkerNodePool                        []WorkerNodePool     `json:"workerNodePool,omitempty"`
 }
 
@@ -71,25 +71,25 @@ type VirtualClusterSpecificationStatus struct {
 //+kubebuilder:resource:scope=Cluster,shortName=vcs
 //+kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
-// VirtualClusterSpecification is the Schema for the virtualclusterspecifications API
-type VirtualClusterSpecification struct {
+// DolphinClusterSpecification is the Schema for the DolphinClusterSpecifications API
+type DolphinClusterSpecification struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   VirtualClusterSpecificationSpec   `json:"spec,omitempty"`
-	Status VirtualClusterSpecificationStatus `json:"status,omitempty"`
+	Spec   DolphinClusterSpecificationSpec   `json:"spec,omitempty"`
+	Status DolphinClusterSpecificationStatus `json:"status,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 //+kubebuilder:object:root=true
 
-// VirtualClusterSpecificationList contains a list of VirtualClusterSpecification
-type VirtualClusterSpecificationList struct {
+// DolphinClusterSpecificationList contains a list of DolphinClusterSpecification
+type DolphinClusterSpecificationList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []VirtualClusterSpecification `json:"items"`
+	Items           []DolphinClusterSpecification `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&VirtualClusterSpecification{}, &VirtualClusterSpecificationList{})
+	SchemeBuilder.Register(&DolphinClusterSpecification{}, &DolphinClusterSpecificationList{})
 }
