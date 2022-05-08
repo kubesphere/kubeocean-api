@@ -224,8 +224,8 @@ func (in *DolphinClusterSpecificationSpec) DeepCopyInto(out *DolphinClusterSpeci
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.ClusterMaxNodeCount != nil {
-		in, out := &in.ClusterMaxNodeCount, &out.ClusterMaxNodeCount
+	if in.ClusterMaxWorkerNodeCount != nil {
+		in, out := &in.ClusterMaxWorkerNodeCount, &out.ClusterMaxWorkerNodeCount
 		*out = new(int32)
 		**out = **in
 	}

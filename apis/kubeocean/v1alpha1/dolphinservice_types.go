@@ -52,6 +52,12 @@ type DolphinServiceStatus struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
+//+kubebuilder:resource:scope=Cluster,shortName=ds
+//+kubebuilder:printcolumn:name="DolphinCluster",type="string",JSONPath=".spec.dolphinCluster",description="The DolphinService related DolphinCluster"
+//+kubebuilder:printcolumn:name="Namespace",type="string",JSONPath=".spec.service.namespace",description="The target servcie namesapce in DolphinCluster"
+//+kubebuilder:printcolumn:name="Name",type="string",JSONPath=".spec.service.name",description="The target servcie name in DolphinCluster"
+//+kubebuilder:printcolumn:name="VisitAddr",type="string",JSONPath=".status.visitAddr",description="The target servcie visit address"
+//+kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // DolphinService is the Schema for the dolphinservices API
 type DolphinService struct {

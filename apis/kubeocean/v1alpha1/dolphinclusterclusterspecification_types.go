@@ -42,7 +42,7 @@ type ControlPlaneSpecification struct {
 type DolphinClusterSpecificationSpec struct {
 	ControlPlaneSpecification ControlPlaneSpecification `json:"controlPlaneSpecification,omitempty"`
 	Specifications            []Specification           `json:"specifications,omitempty"`
-	ClusterMaxNodeCount       *int32                    `json:"clusterMaxNodeCount,omitempty"`
+	ClusterMaxWorkerNodeCount *int32                    `json:"clusterMaxWorkerNodeCount,omitempty"`
 }
 
 type DolphinClusterPool struct {
@@ -68,7 +68,8 @@ type DolphinClusterSpecificationStatus struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
-//+kubebuilder:resource:scope=Cluster,shortName=vcs
+//+kubebuilder:resource:scope=Cluster,shortName=dcs
+//+kubebuilder:printcolumn:name="ClusterMaxWorkerNodeCount",type="number",JSONPath=".spec.clusterMaxWorkerNodeCount"
 //+kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // DolphinClusterSpecification is the Schema for the DolphinClusterSpecifications API
