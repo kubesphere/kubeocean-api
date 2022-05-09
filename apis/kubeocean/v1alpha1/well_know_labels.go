@@ -22,4 +22,6 @@ const (
 
 	ResourceManageByLabel  = "vcluster.loft.sh/managed-by"
 	ResourceNamespaceLabel = "vcluster.loft.sh/namespace"
+
+	DolphinServiceIDLabel = "kubeocean.kubesphere.io/dolphinservice-id"
 )
