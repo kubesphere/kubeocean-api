@@ -10,8 +10,6 @@ const (
 	DolphinClusterMemoryCurrentLabel = "kubeocean.kubesphere.io/dolphincluster-memory-current"
 	DolphinClusterDiskSizeLabel      = "kubeocean.kubesphere.io/dolphincluster-disk-size"
 
-	// KsInstallerDolphinClusterNameLabel = "kubeocean.kubesphere.io/ksinstaller-dolphincluster"
-
 	NodeReservedLabel           = "kubeocean.kubesphere.io/node-reserved"
 	NodeConverted2VClusterLabel = "kubeocean.kubesphere.io/node-converted"
 	NodeDolphinclusterNameLabel = "kubeocean.kubesphere.io/node-dolphincluster"
@@ -23,5 +21,6 @@ const (
 	ResourceManageByLabel  = "vcluster.loft.sh/managed-by"
 	ResourceNamespaceLabel = "vcluster.loft.sh/namespace"
 
-	DolphinServiceIDLabel = "kubeocean.kubesphere.io/dolphinservice-id"
+	DolphinServiceIDLabel   = "kubeocean.kubesphere.io/dolphinservice-id"
+	DolphinServiceNameLabel = "kubeocean.kubesphere.io/dolphinservice-name"
 )
