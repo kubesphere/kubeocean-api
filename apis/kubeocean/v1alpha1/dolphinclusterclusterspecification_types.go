@@ -21,28 +21,53 @@ import (
 )
 
 type Specification struct {
-	Name                                                   string `json:"name,omitempty"`
-	WaitToAssignDolphinClusterThreshold                    *int32 `json:"waitToAssigDolphinClusterThreshold,omitempty"`
-	WaitToAssignKubesphereInstalledDolphinClusterThreshold *int32 `json:"waitToAssigKubesphereInstalledDolphinClusterThreshold,omitempty"`
-	WaitToConvertWorkerNodeThreshold                       *int32 `json:"waitToAssigWorkerNodeThreshold,omitempty"`
-	CpuCurrent                                             *int32 `json:"cpuCurrent,omitempty"`
-	MemoryCurrent                                          *int32 `json:"memoryCurrent,omitempty"`
-	DiskSize                                               *int32 `json:"diskSize,omitempty"`
+	Name          *string `json:"name,omitempty"`
+	CpuCurrent    *int32  `json:"cpuCurrent,omitempty"`
+	MemoryCurrent *int32  `json:"memoryCurrent,omitempty"`
+	DiskSize      *int32  `json:"diskSize,omitempty"`
+	ImageID       *string `json:"imageID,omitempty"`
+	SshKey        *string `json:"sshKey,omitempty"`
 }
 
 type ControlPlaneSpecification struct {
-	Name          string `json:"name,omitempty"`
-	CpuCurrent    *int32 `json:"cpuCurrent,omitempty"`
-	MemoryCurrent *int32 `json:"memoryCurrent,omitempty"`
-	DiskSize      *int32 `json:"diskSize,omitempty"`
+	Specification `json:",inline"`
 	Replicas      *int32 `json:"replicas,omitempty"`
+}
+
+type WorkerNodeSpecification struct {
+	Specification                                          `json:",inline"`
+	InitReplica                                            *int32 `json:"initReplicas,omitempty"`
+	WaitToAssignDolphinClusterThreshold                    *int32 `json:"waitToAssigDolphinClusterThreshold,omitempty"`
+	WaitToAssignKubesphereInstalledDolphinClusterThreshold *int32 `json:"waitToAssigKubesphereInstalledDolphinClusterThreshold,omitempty"`
+	WaitToConvertWorkerNodeThreshold                       *int32 `json:"waitToAssigWorkerNodeThreshold,omitempty"`
+}
+
+type Cluster struct {
+	ControlPlaneSpecification ControlPlaneSpecification `json:"controlPlaneSpecification,omitempty"`
+	WorkerNodeSpecification   []WorkerNodeSpecification `json:"workerNodeSpecification,omitempty"`
+	MaxWorkerNodeCount        *int32                    `json:"maxWorkerNodeCount,omitempty"`
+}
+
+type ClusterResource struct {
+	Cluster         Cluster `json:"cluster,omitempty"`
+	Namespace       *string `json:"namespace,omitempty"`
+	MaxClusterCount *int32  `json:"maxClusterCount,omitempty"`
 }
 
 // DolphinClusterSpecificationSpec defines the desired state of DolphinclusterClusterSpecification
 type DolphinClusterSpecificationSpec struct {
-	ControlPlaneSpecification ControlPlaneSpecification `json:"controlPlaneSpecification,omitempty"`
-	Specifications            []Specification           `json:"specifications,omitempty"`
-	ClusterMaxWorkerNodeCount *int32                    `json:"clusterMaxWorkerNodeCount,omitempty"`
+	ClusterResource ClusterResource `json:"clusterResource"`
+}
+
+type WorkerNode struct {
+	NodeName    string `json:"nodeName,omitempty"`
+	ClusterName string `json:"clusterName,omitempty"`
+}
+
+type WorkerNodePool struct {
+	Name         string       `json:"name,omitempty"`
+	Converted    []WorkerNode `json:"converted,omitempty"`
+	NotConverted []WorkerNode `json:"notConverted,omitempty"`
 }
 
 type DolphinClusterPool struct {
@@ -50,17 +75,11 @@ type DolphinClusterPool struct {
 	NotAssigned []string `json:"notAssigned,omitempty"`
 }
 
-type WorkerNodePool struct {
-	Name         string   `json:"name,omitempty"`
-	Converted    []string `json:"converted,omitempty"`
-	NotConverted []string `json:"notConverted,omitempty"`
-}
-
 // DolphinClusterSpecificationStatus defines the observed state of DolphinClusterSpecification
 type DolphinClusterSpecificationStatus struct {
+	WorkerNodePool                        []WorkerNodePool     `json:"workerNodePool,omitempty"`
 	DolphinClusterPool                    []DolphinClusterPool `json:"dolphinClusterPool,omitempty"`
 	KubesphereInstalledDolphinClusterPool []DolphinClusterPool `json:"kubesphereInstalledDolphinClusterPool,omitempty"`
-	WorkerNodePool                        []WorkerNodePool     `json:"workerNodePool,omitempty"`
 }
 
 // +genclient
@@ -69,7 +88,8 @@ type DolphinClusterSpecificationStatus struct {
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 //+kubebuilder:resource:scope=Cluster,shortName=dcs
-//+kubebuilder:printcolumn:name="ClusterMaxWorkerNodeCount",type="number",JSONPath=".spec.clusterMaxWorkerNodeCount"
+//+kubebuilder:printcolumn:name="ClusterMaxWorkerNodeCount",type="number",JSONPath=".spec.clusterResource.cluster.maxWorkerNodeCount"
+//+kubebuilder:printcolumn:name="MaxClusterCount",type="number",JSONPath=".spec.clusterResource.maxClusterCount"
 //+kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // DolphinClusterSpecification is the Schema for the DolphinClusterSpecifications API

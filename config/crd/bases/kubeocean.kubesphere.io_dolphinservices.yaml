@@ -13,8 +13,6 @@ spec:
     kind: DolphinService
     listKind: DolphinServiceList
     plural: dolphinservices
-    shortNames:
-    - ds
     singular: dolphinservice
   scope: Cluster
   versions:

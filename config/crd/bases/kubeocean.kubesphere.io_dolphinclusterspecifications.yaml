@@ -19,8 +19,11 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .spec.clusterMaxWorkerNodeCount
+    - jsonPath: .spec.clusterResource.cluster.maxWorkerNodeCount
       name: ClusterMaxWorkerNodeCount
+      type: number
+    - jsonPath: .spec.clusterResource.maxClusterCount
+      name: MaxClusterCount
       type: number
     - jsonPath: .metadata.creationTimestamp
       name: Age
@@ -47,51 +50,72 @@ spec:
             description: DolphinClusterSpecificationSpec defines the desired state
               of DolphinclusterClusterSpecification
             properties:
-              clusterMaxWorkerNodeCount:
-                format: int32
-                type: integer
-              controlPlaneSpecification:
+              clusterResource:
                 properties:
-                  cpuCurrent:
+                  cluster:
+                    properties:
+                      controlPlaneSpecification:
+                        properties:
+                          cpuCurrent:
+                            format: int32
+                            type: integer
+                          diskSize:
+                            format: int32
+                            type: integer
+                          imageID:
+                            type: string
+                          memoryCurrent:
+                            format: int32
+                            type: integer
+                          name:
+                            type: string
+                          replicas:
+                            format: int32
+                            type: integer
+                          sshKey:
+                            type: string
+                        type: object
+                      maxWorkerNodeCount:
+                        format: int32
+                        type: integer
+                      workerNodeSpecification:
+                        items:
+                          properties:
+                            cpuCurrent:
+                              format: int32
+                              type: integer
+                            diskSize:
+                              format: int32
+                              type: integer
+                            imageID:
+                              type: string
+                            memoryCurrent:
+                              format: int32
+                              type: integer
+                            name:
+                              type: string
+                            sshKey:
+                              type: string
+                            waitToAssigDolphinClusterThreshold:
+                              format: int32
+                              type: integer
+                            waitToAssigKubesphereInstalledDolphinClusterThreshold:
+                              format: int32
+                              type: integer
+                            waitToAssigWorkerNodeThreshold:
+                              format: int32
+                              type: integer
+                          type: object
+                        type: array
+                    type: object
+                  maxClusterCount:
                     format: int32
                     type: integer
-                  diskSize:
-                    format: int32
-                    type: integer
-                  memoryCurrent:
-                    format: int32
-                    type: integer
-                  name:
+                  namespace:
                     type: string
-                  replicas:
-                    format: int32
-                    type: integer
                 type: object
-              specifications:
-                items:
-                  properties:
-                    cpuCurrent:
-                      format: int32
-                      type: integer
-                    diskSize:
-                      format: int32
-                      type: integer
-                    memoryCurrent:
-                      format: int32
-                      type: integer
-                    name:
-                      type: string
-                    waitToAssigDolphinClusterThreshold:
-                      format: int32
-                      type: integer
-                    waitToAssigKubesphereInstalledDolphinClusterThreshold:
-                      format: int32
-                      type: integer
-                    waitToAssigWorkerNodeThreshold:
-                      format: int32
-                      type: integer
-                  type: object
-                type: array
+            required:
+            - clusterResource
             type: object
           status:
             description: DolphinClusterSpecificationStatus defines the observed state
@@ -124,13 +148,23 @@ spec:
                   properties:
                     converted:
                       items:
-                        type: string
+                        properties:
+                          clusterName:
+                            type: string
+                          nodeName:
+                            type: string
+                        type: object
                       type: array
                     name:
                       type: string
                     notConverted:
                       items:
-                        type: string
+                        properties:
+                          clusterName:
+                            type: string
+                          nodeName:
+                            type: string
+                        type: object
                       type: array
                   type: object
                 type: array

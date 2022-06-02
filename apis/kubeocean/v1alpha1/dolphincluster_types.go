@@ -24,15 +24,6 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// DolphinClusterSpec defines the desired state of DolphinCluster
-type DolphinClusterSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	VirtualCluster VirtualCluster `json:"virtualCluster,omitempty"`
-	ExternalDomain string         `json:"externalDomain,omitempty"`
-}
-
 type VirtualClusterNode struct {
 	Name          string `json:"name,omitempty"`
 	CpuCurrent    *int32 `json:"cpuCurrent,omitempty"`
@@ -56,19 +47,25 @@ type Kubesphere struct {
 	Version   string `json:"version,omitempty"`
 }
 
-type VirtualCluster struct {
-	K3s            ImageRepoVersion                    `json:"k3s,omitempty"`
-	Vcluster       ImageRepoVersion                    `json:"vcluster,omitempty"`
-	Plugins        ImageRepoVersion                    `json:"plugins,omitempty"`
-	InitNode       VirtualClusterInitNodeSpecification `json:"initNode,omitempty"`
-	Specifications []VirtualClusterNodeSpecification   `json:"specifications,omitempty"`
-	Kubesphere     Kubesphere                          `json:"kubesphere,omitempty"`
-}
-
 type ImageRepoVersion struct {
 	ImageRepo string   `json:"imageRepo,omitempty"`
 	Version   string   `json:"version,omitempty"`
 	Args      []string `json:"args,omitempty"`
+}
+
+// DolphinClusterSpec defines the desired state of DolphinCluster
+type DolphinClusterSpec struct {
+	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+	// Important: Run "make" to regenerate code after modifying this file
+
+	K3s             ImageRepoVersion                    `json:"k3s,omitempty"`
+	Vcluster        ImageRepoVersion                    `json:"vcluster,omitempty"`
+	Plugins         ImageRepoVersion                    `json:"plugins,omitempty"`
+	InitNode        VirtualClusterInitNodeSpecification `json:"initNode,omitempty"`
+	Specifications  []VirtualClusterNodeSpecification   `json:"specifications,omitempty"`
+	Kubesphere      Kubesphere                          `json:"kubesphere,omitempty"`
+	ExternalDomain  string                              `json:"externalDomain,omitempty"`
+	HostClusterName string                              `json:"hostClusterName,omitempty"`
 }
 
 type VirtualClusterNodeSpecificationStatus struct {
@@ -94,6 +91,7 @@ type DolphinClusterStatus struct {
 	InitNode             VirtualClusterInitNodeSpecification     `json:"initNode,omitempty"`
 	Specifications       []VirtualClusterNodeSpecificationStatus `json:"specifications,omitempty"`
 	Kubesphere           KubesphereStatus                        `json:"kubesphere,omitempty"`
+	HostClusterName      string                                  `json:"hostClusterName,omitempty"`
 }
 
 // +genclient
@@ -103,10 +101,10 @@ type DolphinClusterStatus struct {
 //+kubebuilder:subresource:status
 //+kubebuilder:resource:scope=Cluster,shortName=dc
 //+kubebuilder:printcolumn:name="InitNode",type="string",JSONPath=".status.initNode.nodeName",description="The virtual cluster init node name"
+//+kubebuilder:printcolumn:name="HostClusterName",type="string",JSONPath=".status.hostClusterName",description="The host cluster bearing this virtual cluster"
 //+kubebuilder:printcolumn:name="KubesphereEnabled",type="boolean",JSONPath=".status.kubesphere.enable",description="Whether install kubesphere in the virtual cluster enable"
 //+kubebuilder:printcolumn:name="KubespherePhase",type="string",JSONPath=".status.kubesphere.phase",description="Kubesphere phase in the virtual cluster"
 //+kubebuilder:printcolumn:name="Phase",type="string",JSONPath=".status.phase",description="The virtual cluster running phase"
-//+kubebuilder:printcolumn:name="ExternalDomain",type="string",JSONPath=".spec.externalDomain",description="The external domain for virtual cluster"
 //+kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // DolphinCluster is the Schema for the dolphinclusters API

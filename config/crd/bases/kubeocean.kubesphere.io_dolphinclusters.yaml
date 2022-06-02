@@ -23,6 +23,10 @@ spec:
       jsonPath: .status.initNode.nodeName
       name: InitNode
       type: string
+    - description: The host cluster bearing this virtual cluster
+      jsonPath: .status.hostClusterName
+      name: HostClusterName
+      type: string
     - description: Whether install kubesphere in the virtual cluster enable
       jsonPath: .status.kubesphere.enable
       name: KubesphereEnabled
@@ -34,10 +38,6 @@ spec:
     - description: The virtual cluster running phase
       jsonPath: .status.phase
       name: Phase
-      type: string
-    - description: The external domain for virtual cluster
-      jsonPath: .spec.externalDomain
-      name: ExternalDomain
       type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
@@ -64,90 +64,91 @@ spec:
             properties:
               externalDomain:
                 type: string
-              virtualCluster:
+              hostClusterName:
+                type: string
+              initNode:
                 properties:
-                  initNode:
-                    properties:
-                      cpuCurrent:
-                        format: int32
-                        type: integer
-                      diskSize:
-                        format: int32
-                        type: integer
-                      memoryCurrent:
-                        format: int32
-                        type: integer
-                      name:
-                        type: string
-                      nodeName:
-                        type: string
-                    type: object
-                  k3s:
-                    properties:
-                      args:
-                        items:
-                          type: string
-                        type: array
-                      imageRepo:
-                        type: string
-                      version:
-                        type: string
-                    type: object
-                  kubesphere:
-                    properties:
-                      enable:
-                        type: boolean
-                      imageRepo:
-                        type: string
-                      version:
-                        type: string
-                    type: object
-                  plugins:
-                    properties:
-                      args:
-                        items:
-                          type: string
-                        type: array
-                      imageRepo:
-                        type: string
-                      version:
-                        type: string
-                    type: object
-                  specifications:
+                  cpuCurrent:
+                    format: int32
+                    type: integer
+                  diskSize:
+                    format: int32
+                    type: integer
+                  memoryCurrent:
+                    format: int32
+                    type: integer
+                  name:
+                    type: string
+                  nodeName:
+                    type: string
+                type: object
+              k3s:
+                properties:
+                  args:
                     items:
-                      properties:
-                        cpuCurrent:
-                          format: int32
-                          type: integer
-                        diskSize:
-                          format: int32
-                          type: integer
-                        memoryCurrent:
-                          format: int32
-                          type: integer
-                        name:
-                          type: string
-                        replicas:
-                          format: int32
-                          type: integer
-                      type: object
+                      type: string
                     type: array
-                  vcluster:
-                    properties:
-                      args:
-                        items:
-                          type: string
-                        type: array
-                      imageRepo:
-                        type: string
-                      version:
-                        type: string
-                    type: object
+                  imageRepo:
+                    type: string
+                  version:
+                    type: string
+                type: object
+              kubesphere:
+                properties:
+                  enable:
+                    type: boolean
+                  imageRepo:
+                    type: string
+                  version:
+                    type: string
+                type: object
+              plugins:
+                properties:
+                  args:
+                    items:
+                      type: string
+                    type: array
+                  imageRepo:
+                    type: string
+                  version:
+                    type: string
+                type: object
+              specifications:
+                items:
+                  properties:
+                    cpuCurrent:
+                      format: int32
+                      type: integer
+                    diskSize:
+                      format: int32
+                      type: integer
+                    memoryCurrent:
+                      format: int32
+                      type: integer
+                    name:
+                      type: string
+                    replicas:
+                      format: int32
+                      type: integer
+                  type: object
+                type: array
+              vcluster:
+                properties:
+                  args:
+                    items:
+                      type: string
+                    type: array
+                  imageRepo:
+                    type: string
+                  version:
+                    type: string
                 type: object
             type: object
           status:
             description: DolphinClusterStatus defines the observed state of DolphinCluster
             properties:
+              hostClusterName:
+                type: string
               inClusterKubeconfig:
                 type: string
               initNode:
