@@ -4,4 +4,6 @@ const (
 	KsInstalling    = "installing"
 	KsInstalled     = "installed"
 	KsInstallFailed = "failed"
+
+	DolphinClusterFinalizerName = "dolphincluster.finalizer.kubeocean.kubesphere.io"
 )

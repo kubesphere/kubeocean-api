@@ -8,4 +8,6 @@ const (
 	APIServerRoleTagValue = "apiserver"
 	// NodeRoleTagValue describes the value for the node role.
 	NodeRoleTagValue = "worker"
+	//	ControlPlaneQcMachineTemplateLabel indicate QcMachineTemplate used from cluster control plane
+	ControlPlaneQcMachineTemplateLabel = "infrastructure.cluster.x-k8s.io/controlplane-qcmachinetemplate"
 )

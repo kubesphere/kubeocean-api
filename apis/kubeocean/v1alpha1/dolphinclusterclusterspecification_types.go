@@ -46,12 +46,15 @@ type Cluster struct {
 	ControlPlaneSpecification ControlPlaneSpecification `json:"controlPlaneSpecification,omitempty"`
 	WorkerNodeSpecification   []WorkerNodeSpecification `json:"workerNodeSpecification,omitempty"`
 	MaxWorkerNodeCount        *int32                    `json:"maxWorkerNodeCount,omitempty"`
+	Version                   *string                   `json:"version,omitempty"`
+	Zone                      *string                   `json:"zone,omitempty"`
 }
 
 type ClusterResource struct {
 	Cluster         Cluster `json:"cluster,omitempty"`
 	Namespace       *string `json:"namespace,omitempty"`
 	MaxClusterCount *int32  `json:"maxClusterCount,omitempty"`
+	ExternalDomain  *string `json:"externalDomain,omitempty"`
 }
 
 // DolphinClusterSpecificationSpec defines the desired state of DolphinclusterClusterSpecification
