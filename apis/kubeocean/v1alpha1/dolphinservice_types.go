@@ -27,6 +27,7 @@ type Service struct {
 	Namespace string `json:"namespace,omitempty"`
 	Name      string `json:"name,omitempty"`
 	Port      int32  `json:"port,omitempty"`
+	Protocol  string `json:"protocol,omitempty"`
 }
 
 // DolphinServiceSpec defines the desired state of DolphinService
