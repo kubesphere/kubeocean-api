@@ -4,6 +4,7 @@ const (
 	DolphinClusterNameLabel          = "kubeocean.kubesphere.io/dolphincluster"
 	DolphinClusterIDLabel            = "kubeocean.kubesphere.io/dolphincluster-id"
 	DolphinClusterOwnerLabel         = "kubeocean.kubesphere.io/dolphincluster-owner"
+	DolphinClusterKsVersionLabel     = "kubeocean.kubesphere.io/dolphincluster-ks-version"
 	DolphinClusterKsInstalledLabel   = "kubeocean.kubesphere.io/dolphincluster-ks-installed"
 	DolphinClusterInstanceTypeLabel  = "kubeocean.kubesphere.io/dolphincluster-instance-type"
 	DolphinClusterCpuCurrentLabel    = "kubeocean.kubesphere.io/dolphincluster-cpu-current"

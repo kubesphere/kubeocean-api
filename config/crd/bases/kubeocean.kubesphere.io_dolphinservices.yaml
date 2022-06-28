@@ -69,6 +69,8 @@ spec:
                   port:
                     format: int32
                     type: integer
+                  protocol:
+                    type: string
                 type: object
             type: object
           status:

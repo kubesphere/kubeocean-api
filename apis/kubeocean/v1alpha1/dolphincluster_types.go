@@ -51,9 +51,8 @@ type VirtualClusterNodeSpecification struct {
 }
 
 type Kubesphere struct {
-	Enable    bool   `json:"enable,omitempty"`
-	ImageRepo string `json:"imageRepo,omitempty"`
-	Version   string `json:"version,omitempty"`
+	Enable  bool   `json:"enable,omitempty"`
+	Version string `json:"version,omitempty"`
 }
 
 type VirtualCluster struct {

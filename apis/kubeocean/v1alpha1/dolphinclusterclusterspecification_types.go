@@ -45,22 +45,33 @@ type DolphinClusterSpecificationSpec struct {
 	ClusterMaxWorkerNodeCount *int32                    `json:"clusterMaxWorkerNodeCount,omitempty"`
 }
 
-type DolphinClusterPool struct {
-	Name        string   `json:"name,omitempty"`
-	NotAssigned []string `json:"notAssigned,omitempty"`
-}
-
-type WorkerNodePool struct {
+type WorkerNodePoolItem struct {
 	Name         string   `json:"name,omitempty"`
 	Converted    []string `json:"converted,omitempty"`
 	NotConverted []string `json:"notConverted,omitempty"`
 }
 
+type WorkerNodePool []WorkerNodePoolItem
+
+type DolphinClusterPoolItem struct {
+	Name        string   `json:"name,omitempty"`
+	NotAssigned []string `json:"notAssigned,omitempty"`
+}
+
+type DolphinClusterPool []DolphinClusterPoolItem
+
+type KsInstalledDolphinClusterPoolItem struct {
+	Name        string              `json:"name,omitempty"`
+	NotAssigned map[string][]string `json:"notAssigned,omitempty"`
+}
+
+type KsInstalledDolphinClusterPool []KsInstalledDolphinClusterPoolItem
+
 // DolphinClusterSpecificationStatus defines the observed state of DolphinClusterSpecification
 type DolphinClusterSpecificationStatus struct {
-	DolphinClusterPool                    []DolphinClusterPool `json:"dolphinClusterPool,omitempty"`
-	KubesphereInstalledDolphinClusterPool []DolphinClusterPool `json:"kubesphereInstalledDolphinClusterPool,omitempty"`
-	WorkerNodePool                        []WorkerNodePool     `json:"workerNodePool,omitempty"`
+	WorkerNodePool                        WorkerNodePool                `json:"workerNodePool,omitempty"`
+	DolphinClusterPool                    DolphinClusterPool            `json:"dolphinClusterPool,omitempty"`
+	KubesphereInstalledDolphinClusterPool KsInstalledDolphinClusterPool `json:"kubesphereInstalledDolphinClusterPool,omitempty"`
 }
 
 // +genclient

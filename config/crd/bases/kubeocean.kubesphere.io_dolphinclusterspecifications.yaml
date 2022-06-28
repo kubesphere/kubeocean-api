@@ -114,9 +114,11 @@ spec:
                     name:
                       type: string
                     notAssigned:
-                      items:
-                        type: string
-                      type: array
+                      additionalProperties:
+                        items:
+                          type: string
+                        type: array
+                      type: object
                   type: object
                 type: array
               workerNodePool:

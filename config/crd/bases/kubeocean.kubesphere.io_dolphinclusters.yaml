@@ -97,8 +97,6 @@ spec:
                     properties:
                       enable:
                         type: boolean
-                      imageRepo:
-                        type: string
                       version:
                         type: string
                     type: object
