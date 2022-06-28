@@ -7,8 +7,8 @@ const (
 	DolphinServiceProtocolHttp  = "http"
 	DolphinServiceProtocolHttps = "https"
 	//	supported kubesphere version
-	Kubesphere3_2_1Version = "kubesphere 3.2.1"
-	Kubesphere3_3Version   = "kubesphere 3.3"
+	Kubesphere3_2_1Version = "3.2.1"
+	Kubesphere3_3Version   = "3.3.0"
 )
 
 var (
