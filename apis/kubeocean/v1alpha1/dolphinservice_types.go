@@ -23,11 +23,18 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
+type ServiceProtocol string
+
+const (
+	ServiceProtocolHttp  ServiceProtocol = "http"
+	ServiceProtocolHttps ServiceProtocol = "https"
+)
+
 type Service struct {
-	Namespace string `json:"namespace,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Port      int32  `json:"port,omitempty"`
-	Protocol  string `json:"protocol,omitempty"`
+	Namespace string          `json:"namespace,omitempty"`
+	Name      string          `json:"name,omitempty"`
+	Port      int32           `json:"port,omitempty"`
+	Protocol  ServiceProtocol `json:"protocol,omitempty"`
 }
 
 // DolphinServiceSpec defines the desired state of DolphinService

@@ -178,8 +178,6 @@ spec:
               outClusterKubeconfig:
                 type: string
               phase:
-                description: PodPhase is a label for the condition of a pod at the
-                  current time.
                 type: string
               specifications:
                 items:

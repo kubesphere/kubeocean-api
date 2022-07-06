@@ -17,7 +17,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -75,19 +74,36 @@ type VirtualClusterNodeSpecificationStatus struct {
 	Nodes              []string `json:"nodes,omitempty"`
 }
 
+type DolphinClusterKubespherePhase string
+
+const (
+	DolphinClusterKubesphereInstalling    DolphinClusterKubespherePhase = "installing"
+	DolphinClusterKubesphereInstalled     DolphinClusterKubespherePhase = "installed"
+	DolphinClusterKubesphereInstallFailed DolphinClusterKubespherePhase = "failed"
+)
+
 type KubesphereStatus struct {
-	Enable            bool   `json:"enable,omitempty"`
-	Phase             string `json:"phase,omitempty"`
-	KubesphereVersion string `json:"version,omitempty"`
-	KsConsoleAddress  string `json:"ksConsoleAddress,omitempty"`
+	Enable            bool                          `json:"enable,omitempty"`
+	Phase             DolphinClusterKubespherePhase `json:"phase,omitempty"`
+	KubesphereVersion string                        `json:"version,omitempty"`
+	KsConsoleAddress  string                        `json:"ksConsoleAddress,omitempty"`
 }
+
+type DolphinClusterPhase string
+
+const (
+	DolphinClusterCreating DolphinClusterPhase = "createing"
+	DolphinClusterRunning  DolphinClusterPhase = "running"
+	DolphinClusterFailed   DolphinClusterPhase = "failed"
+	DolphinClusterDeleting DolphinClusterPhase = "deleting"
+)
 
 // DolphinClusterStatus defines the observed state of DolphinCluster
 type DolphinClusterStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	Phase                corev1.PodPhase                         `json:"phase,omitempty"`
+	Phase                DolphinClusterPhase                     `json:"phase,omitempty"`
 	InClusterKubeconfig  string                                  `json:"inClusterKubeconfig,omitempty"`
 	OutClusterKubeconfig string                                  `json:"outClusterKubeconfig,omitempty"`
 	InitNode             VirtualClusterInitNodeSpecification     `json:"initNode,omitempty"`
