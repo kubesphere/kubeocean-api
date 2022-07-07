@@ -27,6 +27,10 @@ spec:
       jsonPath: .status.kubesphere.enable
       name: KubesphereEnabled
       type: boolean
+    - description: Kubesphere version installed in virtual cluster
+      jsonPath: .status.kubesphere.version
+      name: KubesphereVersion
+      type: string
     - description: Kubesphere phase in the virtual cluster
       jsonPath: .status.kubesphere.phase
       name: KubespherePhase

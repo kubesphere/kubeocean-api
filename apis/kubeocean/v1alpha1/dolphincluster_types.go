@@ -119,6 +119,7 @@ type DolphinClusterStatus struct {
 //+kubebuilder:resource:scope=Cluster,shortName=dc
 //+kubebuilder:printcolumn:name="InitNode",type="string",JSONPath=".status.initNode.nodeName",description="The virtual cluster init node name"
 //+kubebuilder:printcolumn:name="KubesphereEnabled",type="boolean",JSONPath=".status.kubesphere.enable",description="Whether install kubesphere in the virtual cluster enable"
+//+kubebuilder:printcolumn:name="KubesphereVersion",type="string",JSONPath=".status.kubesphere.version",description="Kubesphere version installed in virtual cluster"
 //+kubebuilder:printcolumn:name="KubespherePhase",type="string",JSONPath=".status.kubesphere.phase",description="Kubesphere phase in the virtual cluster"
 //+kubebuilder:printcolumn:name="Phase",type="string",JSONPath=".status.phase",description="The virtual cluster running phase"
 //+kubebuilder:printcolumn:name="ExternalDomain",type="string",JSONPath=".spec.externalDomain",description="The external domain for virtual cluster"
