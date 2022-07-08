@@ -18,6 +18,7 @@ const (
 	NodeCpuCurrentLabel         = "kubeocean.kubesphere.io/node-cpu-current"
 	NodeMemoryCurrentLabel      = "kubeocean.kubesphere.io/node-memory-current"
 	NodeDiskSizeLabel           = "kubeocean.kubesphere.io/node-disk-size"
+	NodeNeedRecycleLabel        = "kubeocean.kubesphere.io/node-need-recycle"
 
 	ResourceManageByLabel  = "vcluster.loft.sh/managed-by"
 	ResourceNamespaceLabel = "vcluster.loft.sh/namespace"
