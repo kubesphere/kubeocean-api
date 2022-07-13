@@ -19,6 +19,7 @@ const (
 	NodeMemoryCurrentLabel      = "kubeocean.kubesphere.io/node-memory-current"
 	NodeDiskSizeLabel           = "kubeocean.kubesphere.io/node-disk-size"
 	NodeNeedRecycleLabel        = "kubeocean.kubesphere.io/node-need-recycle"
+	NodeHealCheckLabel          = "kubeocean.kubesphere.io/node-health-check"
 
 	ResourceManageByLabel  = "vcluster.loft.sh/managed-by"
 	ResourceNamespaceLabel = "vcluster.loft.sh/namespace"
