@@ -7,5 +7,5 @@ const (
 )
 
 var (
-	SupportedKubesphereVersions = []string{Kubesphere3_2_1Version, Kubesphere3_3Version}
+	SupportedKubesphereVersions = []string{Kubesphere3_3Version}
 )
