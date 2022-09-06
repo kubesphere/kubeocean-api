@@ -31,58 +31,58 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// DolphinClusterInformer provides access to a shared informer and lister for
-// DolphinClusters.
-type DolphinClusterInformer interface {
+// KindClusterPoolInformer provides access to a shared informer and lister for
+// KindClusterPools.
+type KindClusterPoolInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1alpha1.DolphinClusterLister
+	Lister() v1alpha1.KindClusterPoolLister
 }
 
-type dolphinClusterInformer struct {
+type kindClusterPoolInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 }
 
-// NewDolphinClusterInformer constructs a new informer for DolphinCluster type.
+// NewKindClusterPoolInformer constructs a new informer for KindClusterPool type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewDolphinClusterInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredDolphinClusterInformer(client, resyncPeriod, indexers, nil)
+func NewKindClusterPoolInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredKindClusterPoolInformer(client, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredDolphinClusterInformer constructs a new informer for DolphinCluster type.
+// NewFilteredKindClusterPoolInformer constructs a new informer for KindClusterPool type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredDolphinClusterInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredKindClusterPoolInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.KubeoceanV1alpha1().DolphinClusters().List(context.TODO(), options)
+				return client.KubeoceanV1alpha1().KindClusterPools().List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.KubeoceanV1alpha1().DolphinClusters().Watch(context.TODO(), options)
+				return client.KubeoceanV1alpha1().KindClusterPools().Watch(context.TODO(), options)
 			},
 		},
-		&kubeoceanv1alpha1.DolphinCluster{},
+		&kubeoceanv1alpha1.KindClusterPool{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *dolphinClusterInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredDolphinClusterInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *kindClusterPoolInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredKindClusterPoolInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *dolphinClusterInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&kubeoceanv1alpha1.DolphinCluster{}, f.defaultInformer)
+func (f *kindClusterPoolInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&kubeoceanv1alpha1.KindClusterPool{}, f.defaultInformer)
 }
 
-func (f *dolphinClusterInformer) Lister() v1alpha1.DolphinClusterLister {
-	return v1alpha1.NewDolphinClusterLister(f.Informer().GetIndexer())
+func (f *kindClusterPoolInformer) Lister() v1alpha1.KindClusterPoolLister {
+	return v1alpha1.NewKindClusterPoolLister(f.Informer().GetIndexer())
 }

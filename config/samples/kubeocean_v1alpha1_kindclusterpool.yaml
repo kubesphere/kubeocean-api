@@ -1,0 +1,25 @@
+apiVersion: kubeocean.kubesphere.io/v1alpha1
+kind: KindClusterPool
+metadata:
+  name: pool
+spec:
+  specificaiton:
+    img-uovpf5uo:
+      specificationId: "1"
+      specificationType:
+      instanceType: s1.large.r2
+      sshKey: kp-hjvf2h6p
+      cpuCurrent: 2048
+      memoryCurrent: 4096
+      diskSize: 100
+      waitToAssignThreshold: 3
+    img-e0971r96:
+      specificationId: "3"
+      specificationType:
+      instanceType: s1.large.r2
+      sshKey: kp-hjvf2h6p
+      cpuCurrent: 2048
+      memoryCurrent: 4096
+      diskSize: 100
+      waitToAssignThreshold: 3
+  targetClusterMaxKindClusterCount: 20

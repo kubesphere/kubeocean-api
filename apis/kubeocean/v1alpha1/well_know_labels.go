@@ -1,6 +1,9 @@
 package v1alpha1
 
 const (
+	KindClusterNameLabel  = "kubeocean.kubesphere.io/kindcluster"
+	KindClusterOwnerLabel = "kubeocean.kubesphere.io/kindcluster-owner"
+
 	DolphinClusterNameLabel          = "kubeocean.kubesphere.io/dolphincluster"
 	DolphinClusterIDLabel            = "kubeocean.kubesphere.io/dolphincluster-id"
 	DolphinClusterOwnerLabel         = "kubeocean.kubesphere.io/dolphincluster-owner"

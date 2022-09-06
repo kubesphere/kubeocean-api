@@ -1,0 +1,24 @@
+# permissions for end users to edit kindclusterpools.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kindclusterpool-editor-role
+rules:
+- apiGroups:
+  - kubeocean.kubesphere.io
+  resources:
+  - kindclusterpools
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - kubeocean.kubesphere.io
+  resources:
+  - kindclusterpools/status
+  verbs:
+  - get

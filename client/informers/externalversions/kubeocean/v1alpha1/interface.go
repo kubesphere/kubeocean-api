@@ -23,12 +23,10 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
-	// DolphinClusters returns a DolphinClusterInformer.
-	DolphinClusters() DolphinClusterInformer
-	// DolphinClusterSpecifications returns a DolphinClusterSpecificationInformer.
-	DolphinClusterSpecifications() DolphinClusterSpecificationInformer
-	// DolphinServices returns a DolphinServiceInformer.
-	DolphinServices() DolphinServiceInformer
+	// KindClusters returns a KindClusterInformer.
+	KindClusters() KindClusterInformer
+	// KindClusterPools returns a KindClusterPoolInformer.
+	KindClusterPools() KindClusterPoolInformer
 }
 
 type version struct {
@@ -42,17 +40,12 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
-// DolphinClusters returns a DolphinClusterInformer.
-func (v *version) DolphinClusters() DolphinClusterInformer {
-	return &dolphinClusterInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+// KindClusters returns a KindClusterInformer.
+func (v *version) KindClusters() KindClusterInformer {
+	return &kindClusterInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
-// DolphinClusterSpecifications returns a DolphinClusterSpecificationInformer.
-func (v *version) DolphinClusterSpecifications() DolphinClusterSpecificationInformer {
-	return &dolphinClusterSpecificationInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
-}
-
-// DolphinServices returns a DolphinServiceInformer.
-func (v *version) DolphinServices() DolphinServiceInformer {
-	return &dolphinServiceInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+// KindClusterPools returns a KindClusterPoolInformer.
+func (v *version) KindClusterPools() KindClusterPoolInformer {
+	return &kindClusterPoolInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }

@@ -17,14 +17,10 @@ limitations under the License.
 
 package v1alpha1
 
-// DolphinClusterListerExpansion allows custom methods to be added to
-// DolphinClusterLister.
-type DolphinClusterListerExpansion interface{}
+// KindClusterListerExpansion allows custom methods to be added to
+// KindClusterLister.
+type KindClusterListerExpansion interface{}
 
-// DolphinClusterSpecificationListerExpansion allows custom methods to be added to
-// DolphinClusterSpecificationLister.
-type DolphinClusterSpecificationListerExpansion interface{}
-
-// DolphinServiceListerExpansion allows custom methods to be added to
-// DolphinServiceLister.
-type DolphinServiceListerExpansion interface{}
+// KindClusterPoolListerExpansion allows custom methods to be added to
+// KindClusterPoolLister.
+type KindClusterPoolListerExpansion interface{}

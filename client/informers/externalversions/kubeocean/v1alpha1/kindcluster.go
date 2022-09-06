@@ -31,58 +31,58 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// DolphinServiceInformer provides access to a shared informer and lister for
-// DolphinServices.
-type DolphinServiceInformer interface {
+// KindClusterInformer provides access to a shared informer and lister for
+// KindClusters.
+type KindClusterInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1alpha1.DolphinServiceLister
+	Lister() v1alpha1.KindClusterLister
 }
 
-type dolphinServiceInformer struct {
+type kindClusterInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 }
 
-// NewDolphinServiceInformer constructs a new informer for DolphinService type.
+// NewKindClusterInformer constructs a new informer for KindCluster type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewDolphinServiceInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredDolphinServiceInformer(client, resyncPeriod, indexers, nil)
+func NewKindClusterInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredKindClusterInformer(client, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredDolphinServiceInformer constructs a new informer for DolphinService type.
+// NewFilteredKindClusterInformer constructs a new informer for KindCluster type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredDolphinServiceInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredKindClusterInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.KubeoceanV1alpha1().DolphinServices().List(context.TODO(), options)
+				return client.KubeoceanV1alpha1().KindClusters().List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.KubeoceanV1alpha1().DolphinServices().Watch(context.TODO(), options)
+				return client.KubeoceanV1alpha1().KindClusters().Watch(context.TODO(), options)
 			},
 		},
-		&kubeoceanv1alpha1.DolphinService{},
+		&kubeoceanv1alpha1.KindCluster{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *dolphinServiceInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredDolphinServiceInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *kindClusterInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredKindClusterInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *dolphinServiceInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&kubeoceanv1alpha1.DolphinService{}, f.defaultInformer)
+func (f *kindClusterInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&kubeoceanv1alpha1.KindCluster{}, f.defaultInformer)
 }
 
-func (f *dolphinServiceInformer) Lister() v1alpha1.DolphinServiceLister {
-	return v1alpha1.NewDolphinServiceLister(f.Informer().GetIndexer())
+func (f *kindClusterInformer) Lister() v1alpha1.KindClusterLister {
+	return v1alpha1.NewKindClusterLister(f.Informer().GetIndexer())
 }

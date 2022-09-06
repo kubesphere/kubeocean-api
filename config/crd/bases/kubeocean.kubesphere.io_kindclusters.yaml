@@ -6,34 +6,30 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
-  name: dolphinservices.kubeocean.kubesphere.io
+  name: kindclusters.kubeocean.kubesphere.io
 spec:
   group: kubeocean.kubesphere.io
   names:
-    kind: DolphinService
-    listKind: DolphinServiceList
-    plural: dolphinservices
+    kind: KindCluster
+    listKind: KindClusterList
+    plural: kindclusters
     shortNames:
-    - ds
-    singular: dolphinservice
+    - kc
+    singular: kindcluster
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - description: The DolphinService related DolphinCluster
-      jsonPath: .spec.dolphinCluster
-      name: DolphinCluster
+    - jsonPath: .spec.instanceType
+      name: InstanceType
       type: string
-    - description: The target servcie namesapce in DolphinCluster
-      jsonPath: .spec.service.namespace
-      name: Namespace
+    - jsonPath: .spec.plugins
+      name: Plugins
       type: string
-    - description: The target servcie name in DolphinCluster
-      jsonPath: .spec.service.name
-      name: Name
+    - jsonPath: .spec.machineOsImage
+      name: OsImage
       type: string
-    - description: The target servcie visit address
-      jsonPath: .status.visitAddr
-      name: VisitAddr
+    - jsonPath: .status.phase
+      name: Phase
       type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
@@ -41,7 +37,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: DolphinService is the Schema for the dolphinservices API
+        description: KindCluster is the Schema for the kindclusters API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -56,29 +52,23 @@ spec:
           metadata:
             type: object
           spec:
-            description: DolphinServiceSpec defines the desired state of DolphinService
+            description: KindClusterSpec defines the desired state of KindCluster
             properties:
-              dolphinCluster:
+              instanceType:
                 type: string
-              service:
-                properties:
-                  name:
-                    type: string
-                  namespace:
-                    type: string
-                  port:
-                    format: int32
-                    type: integer
-                  protocol:
-                    type: string
-                type: object
+              machineOsImage:
+                type: string
+              plugins:
+                type: string
+              sshKey:
+                type: string
             type: object
           status:
-            description: DolphinServiceStatus defines the observed state of DolphinService
+            description: KindClusterStatus defines the observed state of KindCluster
             properties:
-              ingressName:
+              kubeconfig:
                 type: string
-              visitAddr:
+              phase:
                 type: string
             type: object
         type: object

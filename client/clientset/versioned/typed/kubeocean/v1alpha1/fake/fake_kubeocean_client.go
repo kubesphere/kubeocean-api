@@ -27,16 +27,12 @@ type FakeKubeoceanV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeKubeoceanV1alpha1) DolphinClusters() v1alpha1.DolphinClusterInterface {
-	return &FakeDolphinClusters{c}
+func (c *FakeKubeoceanV1alpha1) KindClusters() v1alpha1.KindClusterInterface {
+	return &FakeKindClusters{c}
 }
 
-func (c *FakeKubeoceanV1alpha1) DolphinClusterSpecifications() v1alpha1.DolphinClusterSpecificationInterface {
-	return &FakeDolphinClusterSpecifications{c}
-}
-
-func (c *FakeKubeoceanV1alpha1) DolphinServices() v1alpha1.DolphinServiceInterface {
-	return &FakeDolphinServices{c}
+func (c *FakeKubeoceanV1alpha1) KindClusterPools() v1alpha1.KindClusterPoolInterface {
+	return &FakeKindClusterPools{c}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

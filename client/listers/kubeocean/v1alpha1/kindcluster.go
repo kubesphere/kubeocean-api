@@ -24,44 +24,44 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
-// DolphinServiceLister helps list DolphinServices.
+// KindClusterLister helps list KindClusters.
 // All objects returned here must be treated as read-only.
-type DolphinServiceLister interface {
-	// List lists all DolphinServices in the indexer.
+type KindClusterLister interface {
+	// List lists all KindClusters in the indexer.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1alpha1.DolphinService, err error)
-	// Get retrieves the DolphinService from the index for a given name.
+	List(selector labels.Selector) (ret []*v1alpha1.KindCluster, err error)
+	// Get retrieves the KindCluster from the index for a given name.
 	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1alpha1.DolphinService, error)
-	DolphinServiceListerExpansion
+	Get(name string) (*v1alpha1.KindCluster, error)
+	KindClusterListerExpansion
 }
 
-// dolphinServiceLister implements the DolphinServiceLister interface.
-type dolphinServiceLister struct {
+// kindClusterLister implements the KindClusterLister interface.
+type kindClusterLister struct {
 	indexer cache.Indexer
 }
 
-// NewDolphinServiceLister returns a new DolphinServiceLister.
-func NewDolphinServiceLister(indexer cache.Indexer) DolphinServiceLister {
-	return &dolphinServiceLister{indexer: indexer}
+// NewKindClusterLister returns a new KindClusterLister.
+func NewKindClusterLister(indexer cache.Indexer) KindClusterLister {
+	return &kindClusterLister{indexer: indexer}
 }
 
-// List lists all DolphinServices in the indexer.
-func (s *dolphinServiceLister) List(selector labels.Selector) (ret []*v1alpha1.DolphinService, err error) {
+// List lists all KindClusters in the indexer.
+func (s *kindClusterLister) List(selector labels.Selector) (ret []*v1alpha1.KindCluster, err error) {
 	err = cache.ListAll(s.indexer, selector, func(m interface{}) {
-		ret = append(ret, m.(*v1alpha1.DolphinService))
+		ret = append(ret, m.(*v1alpha1.KindCluster))
 	})
 	return ret, err
 }
 
-// Get retrieves the DolphinService from the index for a given name.
-func (s *dolphinServiceLister) Get(name string) (*v1alpha1.DolphinService, error) {
+// Get retrieves the KindCluster from the index for a given name.
+func (s *kindClusterLister) Get(name string) (*v1alpha1.KindCluster, error) {
 	obj, exists, err := s.indexer.GetByKey(name)
 	if err != nil {
 		return nil, err
 	}
 	if !exists {
-		return nil, errors.NewNotFound(v1alpha1.Resource("dolphinservice"), name)
+		return nil, errors.NewNotFound(v1alpha1.Resource("kindcluster"), name)
 	}
-	return obj.(*v1alpha1.DolphinService), nil
+	return obj.(*v1alpha1.KindCluster), nil
 }

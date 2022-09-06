@@ -24,44 +24,44 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
-// DolphinClusterLister helps list DolphinClusters.
+// KindClusterPoolLister helps list KindClusterPools.
 // All objects returned here must be treated as read-only.
-type DolphinClusterLister interface {
-	// List lists all DolphinClusters in the indexer.
+type KindClusterPoolLister interface {
+	// List lists all KindClusterPools in the indexer.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1alpha1.DolphinCluster, err error)
-	// Get retrieves the DolphinCluster from the index for a given name.
+	List(selector labels.Selector) (ret []*v1alpha1.KindClusterPool, err error)
+	// Get retrieves the KindClusterPool from the index for a given name.
 	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1alpha1.DolphinCluster, error)
-	DolphinClusterListerExpansion
+	Get(name string) (*v1alpha1.KindClusterPool, error)
+	KindClusterPoolListerExpansion
 }
 
-// dolphinClusterLister implements the DolphinClusterLister interface.
-type dolphinClusterLister struct {
+// kindClusterPoolLister implements the KindClusterPoolLister interface.
+type kindClusterPoolLister struct {
 	indexer cache.Indexer
 }
 
-// NewDolphinClusterLister returns a new DolphinClusterLister.
-func NewDolphinClusterLister(indexer cache.Indexer) DolphinClusterLister {
-	return &dolphinClusterLister{indexer: indexer}
+// NewKindClusterPoolLister returns a new KindClusterPoolLister.
+func NewKindClusterPoolLister(indexer cache.Indexer) KindClusterPoolLister {
+	return &kindClusterPoolLister{indexer: indexer}
 }
 
-// List lists all DolphinClusters in the indexer.
-func (s *dolphinClusterLister) List(selector labels.Selector) (ret []*v1alpha1.DolphinCluster, err error) {
+// List lists all KindClusterPools in the indexer.
+func (s *kindClusterPoolLister) List(selector labels.Selector) (ret []*v1alpha1.KindClusterPool, err error) {
 	err = cache.ListAll(s.indexer, selector, func(m interface{}) {
-		ret = append(ret, m.(*v1alpha1.DolphinCluster))
+		ret = append(ret, m.(*v1alpha1.KindClusterPool))
 	})
 	return ret, err
 }
 
-// Get retrieves the DolphinCluster from the index for a given name.
-func (s *dolphinClusterLister) Get(name string) (*v1alpha1.DolphinCluster, error) {
+// Get retrieves the KindClusterPool from the index for a given name.
+func (s *kindClusterPoolLister) Get(name string) (*v1alpha1.KindClusterPool, error) {
 	obj, exists, err := s.indexer.GetByKey(name)
 	if err != nil {
 		return nil, err
 	}
 	if !exists {
-		return nil, errors.NewNotFound(v1alpha1.Resource("dolphincluster"), name)
+		return nil, errors.NewNotFound(v1alpha1.Resource("kindclusterpool"), name)
 	}
-	return obj.(*v1alpha1.DolphinCluster), nil
+	return obj.(*v1alpha1.KindClusterPool), nil
 }

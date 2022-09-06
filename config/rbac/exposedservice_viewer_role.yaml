@@ -1,0 +1,20 @@
+# permissions for end users to view exposedservices.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: exposedservice-viewer-role
+rules:
+- apiGroups:
+  - kubeocean.kubesphere.io
+  resources:
+  - exposedservices
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - kubeocean.kubesphere.io
+  resources:
+  - exposedservices/status
+  verbs:
+  - get

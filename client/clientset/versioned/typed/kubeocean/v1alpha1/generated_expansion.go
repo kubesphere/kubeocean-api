@@ -17,8 +17,6 @@ limitations under the License.
 
 package v1alpha1
 
-type DolphinClusterExpansion interface{}
+type KindClusterExpansion interface{}
 
-type DolphinClusterSpecificationExpansion interface{}
-
-type DolphinServiceExpansion interface{}
+type KindClusterPoolExpansion interface{}

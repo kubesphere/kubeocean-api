@@ -92,12 +92,10 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Controlplane().V1beta1().KubeadmControlPlaneTemplates().Informer()}, nil
 
 		// Group=kubeocean.kubesphere.io, Version=v1alpha1
-	case v1alpha1.SchemeGroupVersion.WithResource("dolphinclusters"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().DolphinClusters().Informer()}, nil
-	case v1alpha1.SchemeGroupVersion.WithResource("dolphinclusterspecifications"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().DolphinClusterSpecifications().Informer()}, nil
-	case v1alpha1.SchemeGroupVersion.WithResource("dolphinservices"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().DolphinServices().Informer()}, nil
+	case v1alpha1.SchemeGroupVersion.WithResource("kindclusters"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().KindClusters().Informer()}, nil
+	case v1alpha1.SchemeGroupVersion.WithResource("kindclusterpools"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().KindClusterPools().Informer()}, nil
 
 	}
 

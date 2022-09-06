@@ -1,0 +1,24 @@
+# permissions for end users to edit exposedservices.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: exposedservice-editor-role
+rules:
+- apiGroups:
+  - kubeocean.kubesphere.io
+  resources:
+  - exposedservices
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - kubeocean.kubesphere.io
+  resources:
+  - exposedservices/status
+  verbs:
+  - get

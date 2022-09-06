@@ -8,27 +8,25 @@ resources:
 - api:
     crdVersion: v1
     namespaced: true
-  controller: true
   domain: kubesphere.io
   group: kubeocean
-  kind: DolphinCluster
-  path: github.com/kubesphere/kubeocean2/apis/kubeocean/v1alpha1
-  version: v1alpha1
-- api:
-    crdVersion: v1
-    namespaced: true
-  controller: true
-  domain: kubesphere.io
-  group: kubeocean.kubesphere.io
-  kind: DolphinClusterSpecification
-  path: github.com/kubesphere/kubeocean2/apis/kubeocean/v1alpha1
+  kind: KindCluster
+  path: github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1
   version: v1alpha1
 - api:
     crdVersion: v1
     namespaced: true
   domain: kubesphere.io
   group: kubeocean
-  kind: DolphinService
+  kind: KindClusterPool
+  path: github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1
+  version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: kubesphere.io
+  group: kubeocean
+  kind: ExposedService
   path: github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1
   version: v1alpha1
 version: "3"

@@ -27,9 +27,8 @@ import (
 
 type KubeoceanV1alpha1Interface interface {
 	RESTClient() rest.Interface
-	DolphinClustersGetter
-	DolphinClusterSpecificationsGetter
-	DolphinServicesGetter
+	KindClustersGetter
+	KindClusterPoolsGetter
 }
 
 // KubeoceanV1alpha1Client is used to interact with features provided by the kubeocean.kubesphere.io group.
@@ -37,16 +36,12 @@ type KubeoceanV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *KubeoceanV1alpha1Client) DolphinClusters() DolphinClusterInterface {
-	return newDolphinClusters(c)
+func (c *KubeoceanV1alpha1Client) KindClusters() KindClusterInterface {
+	return newKindClusters(c)
 }
 
-func (c *KubeoceanV1alpha1Client) DolphinClusterSpecifications() DolphinClusterSpecificationInterface {
-	return newDolphinClusterSpecifications(c)
-}
-
-func (c *KubeoceanV1alpha1Client) DolphinServices() DolphinServiceInterface {
-	return newDolphinServices(c)
+func (c *KubeoceanV1alpha1Client) KindClusterPools() KindClusterPoolInterface {
+	return newKindClusterPools(c)
 }
 
 // NewForConfig creates a new KubeoceanV1alpha1Client for the given config.
