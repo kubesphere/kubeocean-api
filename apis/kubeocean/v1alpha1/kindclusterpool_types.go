@@ -25,11 +25,6 @@ import (
 
 type SpecificationPluginType string
 
-//	SpecificationID use digit to judge wheather plugin installed	3 k8s_ks_plugin1_
-//	1th digit: k8s
-//	2th digit: ks
-//	3th digit: ...
-
 type InstanceTypeType string
 
 type Specification struct {

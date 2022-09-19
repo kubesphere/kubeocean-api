@@ -124,14 +124,14 @@ TMP_DIR=$$(mktemp -d) ;\
 cd $$TMP_DIR ;\
 go mod init tmp ;\
 echo "Downloading $(2)" ;\
-GOBIN=$(PROJECT_DIR)/bin go get $(2) ;\
+GOBIN=$(PROJECT_DIR)/bin go install $(2) ;\
 rm -rf $$TMP_DIR ;\
 }
 endef
 
 .PHONY: generate-client
 generate-client:
-	./hack/generate_group.sh client,lister,informer github.com/kubesphere/kubeocean-api/client github.com/kubesphere/kubeocean-api/apis "kubeocean:v1alpha1 clusterapi:v1beta1 clusterapiproviderqc:v1beta1 bootstrap:v1beta1 controlplane:v1beta1" --output-base=./ -h ./hack/boilerplate.go.txt -v 10
+	./hack/generate_group.sh client,lister,informer github.com/kubesphere/kubeocean-api/client github.com/kubesphere/kubeocean-api/apis "kubeocean:v1alpha1" --output-base=./ -h ./hack/boilerplate.go.txt -v 10
 	rm -rf ./client
 	mv github.com/kubesphere/kubeocean-api/client ./
 	rm -rf ./github.com

@@ -23,10 +23,6 @@ import (
 	time "time"
 
 	versioned "github.com/kubesphere/kubeocean-api/client/clientset/versioned"
-	bootstrap "github.com/kubesphere/kubeocean-api/client/informers/externalversions/bootstrap"
-	clusterapi "github.com/kubesphere/kubeocean-api/client/informers/externalversions/clusterapi"
-	clusterapiproviderqc "github.com/kubesphere/kubeocean-api/client/informers/externalversions/clusterapiproviderqc"
-	controlplane "github.com/kubesphere/kubeocean-api/client/informers/externalversions/controlplane"
 	internalinterfaces "github.com/kubesphere/kubeocean-api/client/informers/externalversions/internalinterfaces"
 	kubeocean "github.com/kubesphere/kubeocean-api/client/informers/externalversions/kubeocean"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -175,27 +171,7 @@ type SharedInformerFactory interface {
 	ForResource(resource schema.GroupVersionResource) (GenericInformer, error)
 	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
 
-	Bootstrap() bootstrap.Interface
-	Clusterapi() clusterapi.Interface
-	Clusterapiproviderqc() clusterapiproviderqc.Interface
-	Controlplane() controlplane.Interface
 	Kubeocean() kubeocean.Interface
-}
-
-func (f *sharedInformerFactory) Bootstrap() bootstrap.Interface {
-	return bootstrap.New(f, f.namespace, f.tweakListOptions)
-}
-
-func (f *sharedInformerFactory) Clusterapi() clusterapi.Interface {
-	return clusterapi.New(f, f.namespace, f.tweakListOptions)
-}
-
-func (f *sharedInformerFactory) Clusterapiproviderqc() clusterapiproviderqc.Interface {
-	return clusterapiproviderqc.New(f, f.namespace, f.tweakListOptions)
-}
-
-func (f *sharedInformerFactory) Controlplane() controlplane.Interface {
-	return controlplane.New(f, f.namespace, f.tweakListOptions)
 }
 
 func (f *sharedInformerFactory) Kubeocean() kubeocean.Interface {

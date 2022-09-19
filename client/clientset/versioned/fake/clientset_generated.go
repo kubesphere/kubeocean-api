@@ -19,14 +19,6 @@ package fake
 
 import (
 	clientset "github.com/kubesphere/kubeocean-api/client/clientset/versioned"
-	bootstrapv1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/bootstrap/v1beta1"
-	fakebootstrapv1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/bootstrap/v1beta1/fake"
-	clusterapiv1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/clusterapi/v1beta1"
-	fakeclusterapiv1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/clusterapi/v1beta1/fake"
-	clusterapiproviderqcv1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/clusterapiproviderqc/v1beta1"
-	fakeclusterapiproviderqcv1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/clusterapiproviderqc/v1beta1/fake"
-	controlplanev1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/controlplane/v1beta1"
-	fakecontrolplanev1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/controlplane/v1beta1/fake"
 	kubeoceanv1alpha1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/kubeocean/v1alpha1"
 	fakekubeoceanv1alpha1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/kubeocean/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -85,26 +77,6 @@ var (
 	_ clientset.Interface = &Clientset{}
 	_ testing.FakeClient  = &Clientset{}
 )
-
-// BootstrapV1beta1 retrieves the BootstrapV1beta1Client
-func (c *Clientset) BootstrapV1beta1() bootstrapv1beta1.BootstrapV1beta1Interface {
-	return &fakebootstrapv1beta1.FakeBootstrapV1beta1{Fake: &c.Fake}
-}
-
-// ClusterapiV1beta1 retrieves the ClusterapiV1beta1Client
-func (c *Clientset) ClusterapiV1beta1() clusterapiv1beta1.ClusterapiV1beta1Interface {
-	return &fakeclusterapiv1beta1.FakeClusterapiV1beta1{Fake: &c.Fake}
-}
-
-// ClusterapiproviderqcV1beta1 retrieves the ClusterapiproviderqcV1beta1Client
-func (c *Clientset) ClusterapiproviderqcV1beta1() clusterapiproviderqcv1beta1.ClusterapiproviderqcV1beta1Interface {
-	return &fakeclusterapiproviderqcv1beta1.FakeClusterapiproviderqcV1beta1{Fake: &c.Fake}
-}
-
-// ControlplaneV1beta1 retrieves the ControlplaneV1beta1Client
-func (c *Clientset) ControlplaneV1beta1() controlplanev1beta1.ControlplaneV1beta1Interface {
-	return &fakecontrolplanev1beta1.FakeControlplaneV1beta1{Fake: &c.Fake}
-}
 
 // KubeoceanV1alpha1 retrieves the KubeoceanV1alpha1Client
 func (c *Clientset) KubeoceanV1alpha1() kubeoceanv1alpha1.KubeoceanV1alpha1Interface {

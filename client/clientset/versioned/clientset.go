@@ -21,10 +21,6 @@ import (
 	"fmt"
 	"net/http"
 
-	bootstrapv1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/bootstrap/v1beta1"
-	clusterapiv1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/clusterapi/v1beta1"
-	clusterapiproviderqcv1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/clusterapiproviderqc/v1beta1"
-	controlplanev1beta1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/controlplane/v1beta1"
 	kubeoceanv1alpha1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/kubeocean/v1alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
@@ -33,10 +29,6 @@ import (
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	BootstrapV1beta1() bootstrapv1beta1.BootstrapV1beta1Interface
-	ClusterapiV1beta1() clusterapiv1beta1.ClusterapiV1beta1Interface
-	ClusterapiproviderqcV1beta1() clusterapiproviderqcv1beta1.ClusterapiproviderqcV1beta1Interface
-	ControlplaneV1beta1() controlplanev1beta1.ControlplaneV1beta1Interface
 	KubeoceanV1alpha1() kubeoceanv1alpha1.KubeoceanV1alpha1Interface
 }
 
@@ -44,31 +36,7 @@ type Interface interface {
 // version included in a Clientset.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	bootstrapV1beta1            *bootstrapv1beta1.BootstrapV1beta1Client
-	clusterapiV1beta1           *clusterapiv1beta1.ClusterapiV1beta1Client
-	clusterapiproviderqcV1beta1 *clusterapiproviderqcv1beta1.ClusterapiproviderqcV1beta1Client
-	controlplaneV1beta1         *controlplanev1beta1.ControlplaneV1beta1Client
-	kubeoceanV1alpha1           *kubeoceanv1alpha1.KubeoceanV1alpha1Client
-}
-
-// BootstrapV1beta1 retrieves the BootstrapV1beta1Client
-func (c *Clientset) BootstrapV1beta1() bootstrapv1beta1.BootstrapV1beta1Interface {
-	return c.bootstrapV1beta1
-}
-
-// ClusterapiV1beta1 retrieves the ClusterapiV1beta1Client
-func (c *Clientset) ClusterapiV1beta1() clusterapiv1beta1.ClusterapiV1beta1Interface {
-	return c.clusterapiV1beta1
-}
-
-// ClusterapiproviderqcV1beta1 retrieves the ClusterapiproviderqcV1beta1Client
-func (c *Clientset) ClusterapiproviderqcV1beta1() clusterapiproviderqcv1beta1.ClusterapiproviderqcV1beta1Interface {
-	return c.clusterapiproviderqcV1beta1
-}
-
-// ControlplaneV1beta1 retrieves the ControlplaneV1beta1Client
-func (c *Clientset) ControlplaneV1beta1() controlplanev1beta1.ControlplaneV1beta1Interface {
-	return c.controlplaneV1beta1
+	kubeoceanV1alpha1 *kubeoceanv1alpha1.KubeoceanV1alpha1Client
 }
 
 // KubeoceanV1alpha1 retrieves the KubeoceanV1alpha1Client
@@ -120,22 +88,6 @@ func NewForConfigAndClient(c *rest.Config, httpClient *http.Client) (*Clientset,
 
 	var cs Clientset
 	var err error
-	cs.bootstrapV1beta1, err = bootstrapv1beta1.NewForConfigAndClient(&configShallowCopy, httpClient)
-	if err != nil {
-		return nil, err
-	}
-	cs.clusterapiV1beta1, err = clusterapiv1beta1.NewForConfigAndClient(&configShallowCopy, httpClient)
-	if err != nil {
-		return nil, err
-	}
-	cs.clusterapiproviderqcV1beta1, err = clusterapiproviderqcv1beta1.NewForConfigAndClient(&configShallowCopy, httpClient)
-	if err != nil {
-		return nil, err
-	}
-	cs.controlplaneV1beta1, err = controlplanev1beta1.NewForConfigAndClient(&configShallowCopy, httpClient)
-	if err != nil {
-		return nil, err
-	}
 	cs.kubeoceanV1alpha1, err = kubeoceanv1alpha1.NewForConfigAndClient(&configShallowCopy, httpClient)
 	if err != nil {
 		return nil, err
@@ -161,10 +113,6 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.bootstrapV1beta1 = bootstrapv1beta1.New(c)
-	cs.clusterapiV1beta1 = clusterapiv1beta1.New(c)
-	cs.clusterapiproviderqcV1beta1 = clusterapiproviderqcv1beta1.New(c)
-	cs.controlplaneV1beta1 = controlplanev1beta1.New(c)
 	cs.kubeoceanV1alpha1 = kubeoceanv1alpha1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
