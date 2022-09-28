@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v2alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -47,14 +47,14 @@ type KindClusterStatus struct {
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-//+kubebuilder:object:root=true
-//+kubebuilder:subresource:status
-//+kubebuilder:resource:scope=Cluster,shortName=kc
-//+kubebuilder:printcolumn:JSONPath=".spec.instanceType",name=InstanceType,type=string
-//+kubebuilder:printcolumn:JSONPath=".spec.plugins",name=Plugins,type=string
-//+kubebuilder:printcolumn:JSONPath=".spec.machineOsImage",name=OsImage,type=string
-//+kubebuilder:printcolumn:JSONPath=".status.phase",name=Phase,type=string
-//+kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Cluster,shortName=kc
+// +kubebuilder:printcolumn:JSONPath=".spec.instanceType",name=InstanceType,type=string
+// +kubebuilder:printcolumn:JSONPath=".spec.plugins",name=Plugins,type=string
+// +kubebuilder:printcolumn:JSONPath=".spec.machineOsImage",name=OsImage,type=string
+// +kubebuilder:printcolumn:JSONPath=".status.phase",name=Phase,type=string
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // KindCluster is the Schema for the kindclusters API
 type KindCluster struct {
 	metav1.TypeMeta   `json:",inline"`

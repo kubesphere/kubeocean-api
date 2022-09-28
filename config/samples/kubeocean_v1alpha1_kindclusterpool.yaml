@@ -1,4 +1,4 @@
-apiVersion: kubeocean.kubesphere.io/v1alpha1
+apiVersion: kubeocean.kubesphere.io/v2alpha1
 kind: KindClusterPool
 metadata:
   name: pool

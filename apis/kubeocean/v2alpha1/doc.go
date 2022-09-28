@@ -1,3 +1,3 @@
 // +k8s:deepcopy-gen=package
 // +groupName=kubeocean.kubesphere.io
-package v1alpha1
+package v2alpha1

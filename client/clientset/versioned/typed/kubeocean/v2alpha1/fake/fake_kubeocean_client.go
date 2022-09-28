@@ -18,26 +18,26 @@ limitations under the License.
 package fake
 
 import (
-	v1alpha1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/kubeocean/v1alpha1"
+	v2alpha1 "github.com/kubesphere/kubeocean-api/v2/client/clientset/versioned/typed/kubeocean/v2alpha1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )
 
-type FakeKubeoceanV1alpha1 struct {
+type FakeKubeoceanV2alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeKubeoceanV1alpha1) KindClusters() v1alpha1.KindClusterInterface {
+func (c *FakeKubeoceanV2alpha1) KindClusters() v2alpha1.KindClusterInterface {
 	return &FakeKindClusters{c}
 }
 
-func (c *FakeKubeoceanV1alpha1) KindClusterPools() v1alpha1.KindClusterPoolInterface {
+func (c *FakeKubeoceanV2alpha1) KindClusterPools() v2alpha1.KindClusterPoolInterface {
 	return &FakeKindClusterPools{c}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *FakeKubeoceanV1alpha1) RESTClient() rest.Interface {
+func (c *FakeKubeoceanV2alpha1) RESTClient() rest.Interface {
 	var ret *rest.RESTClient
 	return ret
 }

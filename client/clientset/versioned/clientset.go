@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"net/http"
 
-	kubeoceanv1alpha1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/kubeocean/v1alpha1"
+	kubeoceanv2alpha1 "github.com/kubesphere/kubeocean-api/v2/client/clientset/versioned/typed/kubeocean/v2alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
@@ -29,19 +29,19 @@ import (
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	KubeoceanV1alpha1() kubeoceanv1alpha1.KubeoceanV1alpha1Interface
+	KubeoceanV2alpha1() kubeoceanv2alpha1.KubeoceanV2alpha1Interface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
 // version included in a Clientset.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	kubeoceanV1alpha1 *kubeoceanv1alpha1.KubeoceanV1alpha1Client
+	kubeoceanV2alpha1 *kubeoceanv2alpha1.KubeoceanV2alpha1Client
 }
 
-// KubeoceanV1alpha1 retrieves the KubeoceanV1alpha1Client
-func (c *Clientset) KubeoceanV1alpha1() kubeoceanv1alpha1.KubeoceanV1alpha1Interface {
-	return c.kubeoceanV1alpha1
+// KubeoceanV2alpha1 retrieves the KubeoceanV2alpha1Client
+func (c *Clientset) KubeoceanV2alpha1() kubeoceanv2alpha1.KubeoceanV2alpha1Interface {
+	return c.kubeoceanV2alpha1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -88,7 +88,7 @@ func NewForConfigAndClient(c *rest.Config, httpClient *http.Client) (*Clientset,
 
 	var cs Clientset
 	var err error
-	cs.kubeoceanV1alpha1, err = kubeoceanv1alpha1.NewForConfigAndClient(&configShallowCopy, httpClient)
+	cs.kubeoceanV2alpha1, err = kubeoceanv2alpha1.NewForConfigAndClient(&configShallowCopy, httpClient)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.kubeoceanV1alpha1 = kubeoceanv1alpha1.New(c)
+	cs.kubeoceanV2alpha1 = kubeoceanv2alpha1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

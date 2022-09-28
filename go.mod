@@ -1,4 +1,4 @@
-module github.com/kubesphere/kubeocean-api
+module github.com/kubesphere/kubeocean-api/v2
 
 go 1.17
 

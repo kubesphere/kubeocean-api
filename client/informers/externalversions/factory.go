@@ -22,9 +22,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "github.com/kubesphere/kubeocean-api/client/clientset/versioned"
-	internalinterfaces "github.com/kubesphere/kubeocean-api/client/informers/externalversions/internalinterfaces"
-	kubeocean "github.com/kubesphere/kubeocean-api/client/informers/externalversions/kubeocean"
+	versioned "github.com/kubesphere/kubeocean-api/v2/client/clientset/versioned"
+	internalinterfaces "github.com/kubesphere/kubeocean-api/v2/client/informers/externalversions/internalinterfaces"
+	kubeocean "github.com/kubesphere/kubeocean-api/v2/client/informers/externalversions/kubeocean"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

@@ -18,9 +18,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "github.com/kubesphere/kubeocean-api/client/clientset/versioned"
-	kubeoceanv1alpha1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/kubeocean/v1alpha1"
-	fakekubeoceanv1alpha1 "github.com/kubesphere/kubeocean-api/client/clientset/versioned/typed/kubeocean/v1alpha1/fake"
+	clientset "github.com/kubesphere/kubeocean-api/v2/client/clientset/versioned"
+	kubeoceanv2alpha1 "github.com/kubesphere/kubeocean-api/v2/client/clientset/versioned/typed/kubeocean/v2alpha1"
+	fakekubeoceanv2alpha1 "github.com/kubesphere/kubeocean-api/v2/client/clientset/versioned/typed/kubeocean/v2alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -78,7 +78,7 @@ var (
 	_ testing.FakeClient  = &Clientset{}
 )
 
-// KubeoceanV1alpha1 retrieves the KubeoceanV1alpha1Client
-func (c *Clientset) KubeoceanV1alpha1() kubeoceanv1alpha1.KubeoceanV1alpha1Interface {
-	return &fakekubeoceanv1alpha1.FakeKubeoceanV1alpha1{Fake: &c.Fake}
+// KubeoceanV2alpha1 retrieves the KubeoceanV2alpha1Client
+func (c *Clientset) KubeoceanV2alpha1() kubeoceanv2alpha1.KubeoceanV2alpha1Interface {
+	return &fakekubeoceanv2alpha1.FakeKubeoceanV2alpha1{Fake: &c.Fake}
 }

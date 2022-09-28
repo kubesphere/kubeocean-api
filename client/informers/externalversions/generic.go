@@ -20,7 +20,7 @@ package externalversions
 import (
 	"fmt"
 
-	v1alpha1 "github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1"
+	v2alpha1 "github.com/kubesphere/kubeocean-api/v2/apis/kubeocean/v2alpha1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )
@@ -51,11 +51,11 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=kubeocean.kubesphere.io, Version=v1alpha1
-	case v1alpha1.SchemeGroupVersion.WithResource("kindclusters"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().KindClusters().Informer()}, nil
-	case v1alpha1.SchemeGroupVersion.WithResource("kindclusterpools"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V1alpha1().KindClusterPools().Informer()}, nil
+	// Group=kubeocean.kubesphere.io, Version=v2alpha1
+	case v2alpha1.SchemeGroupVersion.WithResource("kindclusters"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V2alpha1().KindClusters().Informer()}, nil
+	case v2alpha1.SchemeGroupVersion.WithResource("kindclusterpools"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Kubeocean().V2alpha1().KindClusterPools().Informer()}, nil
 
 	}
 

@@ -18,14 +18,14 @@ limitations under the License.
 package kubeocean
 
 import (
-	internalinterfaces "github.com/kubesphere/kubeocean-api/client/informers/externalversions/internalinterfaces"
-	v1alpha1 "github.com/kubesphere/kubeocean-api/client/informers/externalversions/kubeocean/v1alpha1"
+	internalinterfaces "github.com/kubesphere/kubeocean-api/v2/client/informers/externalversions/internalinterfaces"
+	v2alpha1 "github.com/kubesphere/kubeocean-api/v2/client/informers/externalversions/kubeocean/v2alpha1"
 )
 
 // Interface provides access to each of this group's versions.
 type Interface interface {
-	// V1alpha1 provides access to shared informers for resources in V1alpha1.
-	V1alpha1() v1alpha1.Interface
+	// V2alpha1 provides access to shared informers for resources in V2alpha1.
+	V2alpha1() v2alpha1.Interface
 }
 
 type group struct {
@@ -39,7 +39,7 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &group{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
-// V1alpha1 returns a new v1alpha1.Interface.
-func (g *group) V1alpha1() v1alpha1.Interface {
-	return v1alpha1.New(g.factory, g.namespace, g.tweakListOptions)
+// V2alpha1 returns a new v2alpha1.Interface.
+func (g *group) V2alpha1() v2alpha1.Interface {
+	return v2alpha1.New(g.factory, g.namespace, g.tweakListOptions)
 }

@@ -31,7 +31,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	kubeoceanv1alpha1 "github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1"
+	kubeoceanapi "github.com/kubesphere/kubeocean-api/v2/apis/kubeocean/v2alpha1"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -43,7 +43,7 @@ var (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
-	utilruntime.Must(kubeoceanv1alpha1.AddToScheme(scheme))
+	utilruntime.Must(kubeoceanapi.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 

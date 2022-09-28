@@ -131,7 +131,7 @@ endef
 
 .PHONY: generate-client
 generate-client:
-	./hack/generate_group.sh client,lister,informer github.com/kubesphere/kubeocean-api/client github.com/kubesphere/kubeocean-api/apis "kubeocean:v1alpha1" --output-base=./ -h ./hack/boilerplate.go.txt -v 10
+	./hack/generate_group.sh client,lister,informer github.com/kubesphere/kubeocean-api/v2/client github.com/kubesphere/kubeocean-api/v2/apis "kubeocean:v2alpha1" --output-base=./ -h ./hack/boilerplate.go.txt -v 10
 	rm -rf ./client
-	mv github.com/kubesphere/kubeocean-api/client ./
+	mv github.com/kubesphere/kubeocean-api/v2/client ./
 	rm -rf ./github.com

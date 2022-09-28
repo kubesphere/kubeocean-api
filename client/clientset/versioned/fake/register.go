@@ -18,7 +18,7 @@ limitations under the License.
 package fake
 
 import (
-	kubeoceanv1alpha1 "github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1"
+	kubeoceanv2alpha1 "github.com/kubesphere/kubeocean-api/v2/apis/kubeocean/v2alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -30,7 +30,7 @@ var scheme = runtime.NewScheme()
 var codecs = serializer.NewCodecFactory(scheme)
 
 var localSchemeBuilder = runtime.SchemeBuilder{
-	kubeoceanv1alpha1.AddToScheme,
+	kubeoceanv2alpha1.AddToScheme,
 }
 
 // AddToScheme adds all types of this clientset into the given scheme. This allows composition

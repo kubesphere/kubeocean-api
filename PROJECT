@@ -6,27 +6,27 @@ projectName: kubeocean-api
 repo: github.com/kubesphere/kubeocean-api
 resources:
 - api:
-    crdVersion: v1
+    crdVersion: v2
     namespaced: true
   domain: kubesphere.io
   group: kubeocean
   kind: KindCluster
-  path: github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1
-  version: v1alpha1
+  path: github.com/kubesphere/kubeocean-api/apis/kubeocean/v2alpha1
+  version: v2alpha1
 - api:
-    crdVersion: v1
+    crdVersion: v2
     namespaced: true
   domain: kubesphere.io
   group: kubeocean
   kind: KindClusterPool
-  path: github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1
-  version: v1alpha1
+  path: github.com/kubesphere/kubeocean-api/apis/kubeocean/v2alpha1
+  version: v2alpha1
 - api:
-    crdVersion: v1
+    crdVersion: v2
     namespaced: true
   domain: kubesphere.io
   group: kubeocean
   kind: ExposedService
-  path: github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1
-  version: v1alpha1
+  path: github.com/kubesphere/kubeocean-api/apis/kubeocean/v2alpha1
+  version: v2alpha1
 version: "3"

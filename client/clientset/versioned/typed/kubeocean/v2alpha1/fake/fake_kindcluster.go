@@ -20,7 +20,7 @@ package fake
 import (
 	"context"
 
-	v1alpha1 "github.com/kubesphere/kubeocean-api/apis/kubeocean/v1alpha1"
+	v2alpha1 "github.com/kubesphere/kubeocean-api/v2/apis/kubeocean/v2alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -31,27 +31,27 @@ import (
 
 // FakeKindClusters implements KindClusterInterface
 type FakeKindClusters struct {
-	Fake *FakeKubeoceanV1alpha1
+	Fake *FakeKubeoceanV2alpha1
 }
 
-var kindclustersResource = schema.GroupVersionResource{Group: "kubeocean.kubesphere.io", Version: "v1alpha1", Resource: "kindclusters"}
+var kindclustersResource = schema.GroupVersionResource{Group: "kubeocean.kubesphere.io", Version: "v2alpha1", Resource: "kindclusters"}
 
-var kindclustersKind = schema.GroupVersionKind{Group: "kubeocean.kubesphere.io", Version: "v1alpha1", Kind: "KindCluster"}
+var kindclustersKind = schema.GroupVersionKind{Group: "kubeocean.kubesphere.io", Version: "v2alpha1", Kind: "KindCluster"}
 
 // Get takes name of the kindCluster, and returns the corresponding kindCluster object, and an error if there is any.
-func (c *FakeKindClusters) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.KindCluster, err error) {
+func (c *FakeKindClusters) Get(ctx context.Context, name string, options v1.GetOptions) (result *v2alpha1.KindCluster, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootGetAction(kindclustersResource, name), &v1alpha1.KindCluster{})
+		Invokes(testing.NewRootGetAction(kindclustersResource, name), &v2alpha1.KindCluster{})
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1alpha1.KindCluster), err
+	return obj.(*v2alpha1.KindCluster), err
 }
 
 // List takes label and field selectors, and returns the list of KindClusters that match those selectors.
-func (c *FakeKindClusters) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.KindClusterList, err error) {
+func (c *FakeKindClusters) List(ctx context.Context, opts v1.ListOptions) (result *v2alpha1.KindClusterList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootListAction(kindclustersResource, kindclustersKind, opts), &v1alpha1.KindClusterList{})
+		Invokes(testing.NewRootListAction(kindclustersResource, kindclustersKind, opts), &v2alpha1.KindClusterList{})
 	if obj == nil {
 		return nil, err
 	}
@@ -60,8 +60,8 @@ func (c *FakeKindClusters) List(ctx context.Context, opts v1.ListOptions) (resul
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.KindClusterList{ListMeta: obj.(*v1alpha1.KindClusterList).ListMeta}
-	for _, item := range obj.(*v1alpha1.KindClusterList).Items {
+	list := &v2alpha1.KindClusterList{ListMeta: obj.(*v2alpha1.KindClusterList).ListMeta}
+	for _, item := range obj.(*v2alpha1.KindClusterList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -76,40 +76,40 @@ func (c *FakeKindClusters) Watch(ctx context.Context, opts v1.ListOptions) (watc
 }
 
 // Create takes the representation of a kindCluster and creates it.  Returns the server's representation of the kindCluster, and an error, if there is any.
-func (c *FakeKindClusters) Create(ctx context.Context, kindCluster *v1alpha1.KindCluster, opts v1.CreateOptions) (result *v1alpha1.KindCluster, err error) {
+func (c *FakeKindClusters) Create(ctx context.Context, kindCluster *v2alpha1.KindCluster, opts v1.CreateOptions) (result *v2alpha1.KindCluster, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootCreateAction(kindclustersResource, kindCluster), &v1alpha1.KindCluster{})
+		Invokes(testing.NewRootCreateAction(kindclustersResource, kindCluster), &v2alpha1.KindCluster{})
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1alpha1.KindCluster), err
+	return obj.(*v2alpha1.KindCluster), err
 }
 
 // Update takes the representation of a kindCluster and updates it. Returns the server's representation of the kindCluster, and an error, if there is any.
-func (c *FakeKindClusters) Update(ctx context.Context, kindCluster *v1alpha1.KindCluster, opts v1.UpdateOptions) (result *v1alpha1.KindCluster, err error) {
+func (c *FakeKindClusters) Update(ctx context.Context, kindCluster *v2alpha1.KindCluster, opts v1.UpdateOptions) (result *v2alpha1.KindCluster, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateAction(kindclustersResource, kindCluster), &v1alpha1.KindCluster{})
+		Invokes(testing.NewRootUpdateAction(kindclustersResource, kindCluster), &v2alpha1.KindCluster{})
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1alpha1.KindCluster), err
+	return obj.(*v2alpha1.KindCluster), err
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeKindClusters) UpdateStatus(ctx context.Context, kindCluster *v1alpha1.KindCluster, opts v1.UpdateOptions) (*v1alpha1.KindCluster, error) {
+func (c *FakeKindClusters) UpdateStatus(ctx context.Context, kindCluster *v2alpha1.KindCluster, opts v1.UpdateOptions) (*v2alpha1.KindCluster, error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateSubresourceAction(kindclustersResource, "status", kindCluster), &v1alpha1.KindCluster{})
+		Invokes(testing.NewRootUpdateSubresourceAction(kindclustersResource, "status", kindCluster), &v2alpha1.KindCluster{})
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1alpha1.KindCluster), err
+	return obj.(*v2alpha1.KindCluster), err
 }
 
 // Delete takes name of the kindCluster and deletes it. Returns an error if one occurs.
 func (c *FakeKindClusters) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteActionWithOptions(kindclustersResource, name, opts), &v1alpha1.KindCluster{})
+		Invokes(testing.NewRootDeleteActionWithOptions(kindclustersResource, name, opts), &v2alpha1.KindCluster{})
 	return err
 }
 
@@ -117,16 +117,16 @@ func (c *FakeKindClusters) Delete(ctx context.Context, name string, opts v1.Dele
 func (c *FakeKindClusters) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	action := testing.NewRootDeleteCollectionAction(kindclustersResource, listOpts)
 
-	_, err := c.Fake.Invokes(action, &v1alpha1.KindClusterList{})
+	_, err := c.Fake.Invokes(action, &v2alpha1.KindClusterList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched kindCluster.
-func (c *FakeKindClusters) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.KindCluster, err error) {
+func (c *FakeKindClusters) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v2alpha1.KindCluster, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootPatchSubresourceAction(kindclustersResource, name, pt, data, subresources...), &v1alpha1.KindCluster{})
+		Invokes(testing.NewRootPatchSubresourceAction(kindclustersResource, name, pt, data, subresources...), &v2alpha1.KindCluster{})
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1alpha1.KindCluster), err
+	return obj.(*v2alpha1.KindCluster), err
 }

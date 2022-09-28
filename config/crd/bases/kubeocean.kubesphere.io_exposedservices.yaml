@@ -16,7 +16,7 @@ spec:
     singular: exposedservice
   scope: Namespaced
   versions:
-  - name: v1alpha1
+  - name: v2alpha1
     schema:
       openAPIV3Schema:
         description: ExposedService is the Schema for the exposedservices API
