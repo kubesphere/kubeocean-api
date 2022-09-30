@@ -17,6 +17,7 @@ limitations under the License.
 package v2alpha1
 
 import (
+	"github.com/kubesphere/kubeocean-api/v2/constant/qingcloud"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -25,23 +26,25 @@ import (
 
 // KindClusterSpec defines the desired state of KindCluster
 type KindClusterSpec struct {
-	Plugins        SpecificationPluginType `json:"plugins,omitempty"`
-	MachineOsImage OsImageType             `json:"machineOsImage,omitempty"`
-	InstanceType   InstanceTypeType        `json:"instanceType,omitempty"`
-	SshKey         string                  `json:"sshKey,omitempty"`
+	OsImageID       OsImageID              `json:"osImageID"`
+	InstanceType    qingcloud.InstanceType `json:"instanceType"`
+	SpecificationID SpecificationID        `json:"specificationID"`
+	SshKeyID        string                 `json:"sshKeyID"`
 }
 
 type KindClusterPhase string
 
 const (
-	KindClusterCreatingPhase KindClusterPhase = "creating"
-	KindClusterCreatedPhase  KindClusterPhase = "created"
+	KindClusterPhaseCreating   KindClusterPhase = "creating"
+	KindClusterPhaseAssigned   KindClusterPhase = "assigned"
+	KindClusterPhaseUnassigned KindClusterPhase = "unassigned"
+	KindClusterPhaseDeleting   KindClusterPhase = "deleting"
 )
 
 // KindClusterStatus defines the observed state of KindCluster
 type KindClusterStatus struct {
-	Phase      KindClusterPhase `json:"phase,omitempty"`
-	Kubeconfig string           `json:"kubeconfig,omitempty"`
+	Phase      KindClusterPhase `json:"phase"`
+	Kubeconfig string           `json:"kubeconfig"`
 }
 
 // +genclient
@@ -51,17 +54,18 @@ type KindClusterStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,shortName=kc
 // +kubebuilder:printcolumn:JSONPath=".spec.instanceType",name=InstanceType,type=string
-// +kubebuilder:printcolumn:JSONPath=".spec.plugins",name=Plugins,type=string
-// +kubebuilder:printcolumn:JSONPath=".spec.machineOsImage",name=OsImage,type=string
+// +kubebuilder:printcolumn:JSONPath=".spec.osImageID",name=OSImageID,type=string
+// +kubebuilder:printcolumn:JSONPath=".spec.specificationID",name=SpecificationID,type=string
 // +kubebuilder:printcolumn:JSONPath=".status.phase",name=Phase,type=string
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
+
 // KindCluster is the Schema for the kindclusters API
 type KindCluster struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
+	metav1.ObjectMeta `json:"metadata"`
 
-	Spec   KindClusterSpec   `json:"spec,omitempty"`
-	Status KindClusterStatus `json:"status,omitempty"`
+	Spec   KindClusterSpec   `json:"spec"`
+	Status KindClusterStatus `json:"status"`
 }
 
 //+kubebuilder:object:root=true
@@ -70,7 +74,7 @@ type KindCluster struct {
 // KindClusterList contains a list of KindCluster
 type KindClusterList struct {
 	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata,omitempty"`
+	metav1.ListMeta `json:"metadata"`
 	Items           []KindCluster `json:"items"`
 }
 

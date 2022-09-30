@@ -17,42 +17,50 @@ limitations under the License.
 package v2alpha1
 
 import (
+	"github.com/kubesphere/kubeocean-api/v2/constant/qingcloud"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-type SpecificationPluginType string
-
-type InstanceTypeType string
+type OsImageID string
 
 type Specification struct {
-	SpecificationID       SpecificationPluginType `json:"specificationId,omitempty"`
-	InstanceType          InstanceTypeType        `json:"instanceType,omitempty"`
-	SshKey                string                  `json:"sshKey,omitempty"`
-	CpuCurrent            int32                   `json:"cpuCurrent,omitempty"`
-	MemoryCurrent         int32                   `json:"memoryCurrent,omitempty"`
-	DiskSize              int32                   `json:"diskSize,omitempty"`
-	WaitToAssignThreshold int32                   `json:"waitToAssignThreshold,omitempty"`
+	OsImageID             OsImageID              `json:"osImageID"`
+	InstanceType          qingcloud.InstanceType `json:"instanceType"`
+	WaitToAssignThreshold int32                  `json:"waitToAssignThreshold"`
+
+	// Below fields are determined by OsImageID
+	SshKey            string `json:"sshKey"`
+	DiskSize          int32  `json:"diskSize"`
+	KubernetesVersion string `json:"kubernetesVersion"`
+	KubesphereVersion string `json:"kubesphereVersion"`
+	KubespherePlugins string `json:"kubespherePlugins"` // minimal/full/etc.
+	Masters           int32  `json:"masters"`
+	Workers           int32  `json:"workers"`
+
+	// Below fields are determined by InstanceType
+	CpuCurrent    int32 `json:"cpuCurrent"`
+	MemoryCurrent int32 `json:"memoryCurrent"`
 }
 
-type OsImageType string
+type SpecificationID string
 
 // KindClusterPoolSpec defines the desired state of KindClusterPool
 type KindClusterPoolSpec struct {
-	Specifications                   map[OsImageType]Specification `json:"specificaiton"`
-	TargetClusterMaxKindClusterCount int32                         `json:"targetClusterMaxKindClusterCount"`
+	Specifications                   map[SpecificationID]Specification `json:"specifications"`
+	TargetClusterMaxKindClusterCount int32                             `json:"targetClusterMaxKindClusterCount"`
 }
 
-type SpecificationStatus struct {
-	Assigned    []string `json:"assigned"`
-	NotAssigned []string `json:"notAssigned"`
-}
+type KindClusterID string
+type SpecificationStatus map[KindClusterPhase][]KindClusterID
 
 // KindClusterPoolStatus defines the observed state of KindClusterPool
 type KindClusterPoolStatus struct {
-	SpecificaitonsStatus map[InstanceTypeType]map[SpecificationPluginType]SpecificationStatus `json:"specificaitonsStatus"`
+	SpecificationStatuses map[SpecificationID]SpecificationStatus `json:"specificationStatuses"`
+	CountByPhase          map[KindClusterPhase]int32              `json:"countByPhase"`
+	TotalCount            int32                                   `json:"totalCount"`
 }
 
 // +genclient
@@ -66,10 +74,10 @@ type KindClusterPoolStatus struct {
 // KindClusterPool is the Schema for the kindclusterpools API
 type KindClusterPool struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
+	metav1.ObjectMeta `json:"metadata"`
 
-	Spec   KindClusterPoolSpec   `json:"spec,omitempty"`
-	Status KindClusterPoolStatus `json:"status,omitempty"`
+	Spec   KindClusterPoolSpec   `json:"spec"`
+	Status KindClusterPoolStatus `json:"status"`
 }
 
 //+kubebuilder:object:root=true
@@ -78,7 +86,7 @@ type KindClusterPool struct {
 // KindClusterPoolList contains a list of KindClusterPool
 type KindClusterPoolList struct {
 	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata,omitempty"`
+	metav1.ListMeta `json:"metadata"`
 	Items           []KindClusterPool `json:"items"`
 }
 
