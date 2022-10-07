@@ -24,44 +24,44 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
-// KindClusterLister helps list KindClusters.
+// ClusterPoolLister helps list ClusterPools.
 // All objects returned here must be treated as read-only.
-type KindClusterLister interface {
-	// List lists all KindClusters in the indexer.
+type ClusterPoolLister interface {
+	// List lists all ClusterPools in the indexer.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v2alpha1.KindCluster, err error)
-	// Get retrieves the KindCluster from the index for a given name.
+	List(selector labels.Selector) (ret []*v2alpha1.ClusterPool, err error)
+	// Get retrieves the ClusterPool from the index for a given name.
 	// Objects returned here must be treated as read-only.
-	Get(name string) (*v2alpha1.KindCluster, error)
-	KindClusterListerExpansion
+	Get(name string) (*v2alpha1.ClusterPool, error)
+	ClusterPoolListerExpansion
 }
 
-// kindClusterLister implements the KindClusterLister interface.
-type kindClusterLister struct {
+// clusterPoolLister implements the ClusterPoolLister interface.
+type clusterPoolLister struct {
 	indexer cache.Indexer
 }
 
-// NewKindClusterLister returns a new KindClusterLister.
-func NewKindClusterLister(indexer cache.Indexer) KindClusterLister {
-	return &kindClusterLister{indexer: indexer}
+// NewClusterPoolLister returns a new ClusterPoolLister.
+func NewClusterPoolLister(indexer cache.Indexer) ClusterPoolLister {
+	return &clusterPoolLister{indexer: indexer}
 }
 
-// List lists all KindClusters in the indexer.
-func (s *kindClusterLister) List(selector labels.Selector) (ret []*v2alpha1.KindCluster, err error) {
+// List lists all ClusterPools in the indexer.
+func (s *clusterPoolLister) List(selector labels.Selector) (ret []*v2alpha1.ClusterPool, err error) {
 	err = cache.ListAll(s.indexer, selector, func(m interface{}) {
-		ret = append(ret, m.(*v2alpha1.KindCluster))
+		ret = append(ret, m.(*v2alpha1.ClusterPool))
 	})
 	return ret, err
 }
 
-// Get retrieves the KindCluster from the index for a given name.
-func (s *kindClusterLister) Get(name string) (*v2alpha1.KindCluster, error) {
+// Get retrieves the ClusterPool from the index for a given name.
+func (s *clusterPoolLister) Get(name string) (*v2alpha1.ClusterPool, error) {
 	obj, exists, err := s.indexer.GetByKey(name)
 	if err != nil {
 		return nil, err
 	}
 	if !exists {
-		return nil, errors.NewNotFound(v2alpha1.Resource("kindcluster"), name)
+		return nil, errors.NewNotFound(v2alpha1.Resource("clusterpool"), name)
 	}
-	return obj.(*v2alpha1.KindCluster), nil
+	return obj.(*v2alpha1.ClusterPool), nil
 }

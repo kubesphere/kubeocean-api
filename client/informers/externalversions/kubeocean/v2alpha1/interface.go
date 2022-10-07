@@ -23,10 +23,10 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
-	// KindClusters returns a KindClusterInformer.
-	KindClusters() KindClusterInformer
-	// KindClusterPools returns a KindClusterPoolInformer.
-	KindClusterPools() KindClusterPoolInformer
+	// Clusters returns a ClusterInformer.
+	Clusters() ClusterInformer
+	// ClusterPools returns a ClusterPoolInformer.
+	ClusterPools() ClusterPoolInformer
 }
 
 type version struct {
@@ -40,12 +40,12 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
-// KindClusters returns a KindClusterInformer.
-func (v *version) KindClusters() KindClusterInformer {
-	return &kindClusterInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+// Clusters returns a ClusterInformer.
+func (v *version) Clusters() ClusterInformer {
+	return &clusterInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
-// KindClusterPools returns a KindClusterPoolInformer.
-func (v *version) KindClusterPools() KindClusterPoolInformer {
-	return &kindClusterPoolInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+// ClusterPools returns a ClusterPoolInformer.
+func (v *version) ClusterPools() ClusterPoolInformer {
+	return &clusterPoolInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }

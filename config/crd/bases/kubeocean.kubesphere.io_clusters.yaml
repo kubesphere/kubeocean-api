@@ -6,27 +6,25 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
-  name: kindclusters.kubeocean.kubesphere.io
+  name: clusters.kubeocean.kubesphere.io
 spec:
   group: kubeocean.kubesphere.io
   names:
-    kind: KindCluster
-    listKind: KindClusterList
-    plural: kindclusters
-    shortNames:
-    - kc
-    singular: kindcluster
+    kind: Cluster
+    listKind: ClusterList
+    plural: clusters
+    singular: cluster
   scope: Cluster
   versions:
   - additionalPrinterColumns:
     - jsonPath: .spec.instanceType
       name: InstanceType
       type: string
-    - jsonPath: .spec.plugins
-      name: Plugins
+    - jsonPath: .spec.osImageID
+      name: OSImageID
       type: string
-    - jsonPath: .spec.machineOsImage
-      name: OsImage
+    - jsonPath: .spec.specificationID
+      name: SpecificationID
       type: string
     - jsonPath: .status.phase
       name: Phase
@@ -37,7 +35,7 @@ spec:
     name: v2alpha1
     schema:
       openAPIV3Schema:
-        description: KindCluster is the Schema for the kindclusters API
+        description: Cluster is the Schema for the clusters API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -52,19 +50,40 @@ spec:
           metadata:
             type: object
           spec:
-            description: KindClusterSpec defines the desired state of KindCluster
+            description: ClusterSpec defines the desired state of Cluster
             properties:
+              cpuCurrent:
+                format: int32
+                type: integer
+              diskSize:
+                format: int32
+                type: integer
               instanceType:
                 type: string
-              machineOsImage:
+              kubernetesVersion:
                 type: string
-              plugins:
+              kubespherePlugins:
                 type: string
-              sshKey:
+              kubesphereVersion:
                 type: string
+              masters:
+                format: int32
+                type: integer
+              memoryCurrent:
+                format: int32
+                type: integer
+              osImageID:
+                type: string
+              specificationID:
+                type: string
+              sshKeyID:
+                type: string
+              workers:
+                format: int32
+                type: integer
             type: object
           status:
-            description: KindClusterStatus defines the observed state of KindCluster
+            description: ClusterStatus defines the observed state of Cluster
             properties:
               kubeconfig:
                 type: string

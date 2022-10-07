@@ -17,10 +17,10 @@ limitations under the License.
 
 package v2alpha1
 
-// KindClusterListerExpansion allows custom methods to be added to
-// KindClusterLister.
-type KindClusterListerExpansion interface{}
+// ClusterListerExpansion allows custom methods to be added to
+// ClusterLister.
+type ClusterListerExpansion interface{}
 
-// KindClusterPoolListerExpansion allows custom methods to be added to
-// KindClusterPoolLister.
-type KindClusterPoolListerExpansion interface{}
+// ClusterPoolListerExpansion allows custom methods to be added to
+// ClusterPoolLister.
+type ClusterPoolListerExpansion interface{}

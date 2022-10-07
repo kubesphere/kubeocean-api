@@ -31,58 +31,58 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// KindClusterPoolInformer provides access to a shared informer and lister for
-// KindClusterPools.
-type KindClusterPoolInformer interface {
+// ClusterPoolInformer provides access to a shared informer and lister for
+// ClusterPools.
+type ClusterPoolInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v2alpha1.KindClusterPoolLister
+	Lister() v2alpha1.ClusterPoolLister
 }
 
-type kindClusterPoolInformer struct {
+type clusterPoolInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 }
 
-// NewKindClusterPoolInformer constructs a new informer for KindClusterPool type.
+// NewClusterPoolInformer constructs a new informer for ClusterPool type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewKindClusterPoolInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredKindClusterPoolInformer(client, resyncPeriod, indexers, nil)
+func NewClusterPoolInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredClusterPoolInformer(client, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredKindClusterPoolInformer constructs a new informer for KindClusterPool type.
+// NewFilteredClusterPoolInformer constructs a new informer for ClusterPool type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredKindClusterPoolInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredClusterPoolInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.KubeoceanV2alpha1().KindClusterPools().List(context.TODO(), options)
+				return client.KubeoceanV2alpha1().ClusterPools().List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.KubeoceanV2alpha1().KindClusterPools().Watch(context.TODO(), options)
+				return client.KubeoceanV2alpha1().ClusterPools().Watch(context.TODO(), options)
 			},
 		},
-		&kubeoceanv2alpha1.KindClusterPool{},
+		&kubeoceanv2alpha1.ClusterPool{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *kindClusterPoolInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredKindClusterPoolInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *clusterPoolInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredClusterPoolInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *kindClusterPoolInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&kubeoceanv2alpha1.KindClusterPool{}, f.defaultInformer)
+func (f *clusterPoolInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&kubeoceanv2alpha1.ClusterPool{}, f.defaultInformer)
 }
 
-func (f *kindClusterPoolInformer) Lister() v2alpha1.KindClusterPoolLister {
-	return v2alpha1.NewKindClusterPoolLister(f.Informer().GetIndexer())
+func (f *clusterPoolInformer) Lister() v2alpha1.ClusterPoolLister {
+	return v2alpha1.NewClusterPoolLister(f.Informer().GetIndexer())
 }

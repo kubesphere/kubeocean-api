@@ -6,16 +6,16 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
-  name: kindclusterpools.kubeocean.kubesphere.io
+  name: clusterpools.kubeocean.kubesphere.io
 spec:
   group: kubeocean.kubesphere.io
   names:
-    kind: KindClusterPool
-    listKind: KindClusterPoolList
-    plural: kindclusterpools
+    kind: ClusterPool
+    listKind: ClusterPoolList
+    plural: clusterpools
     shortNames:
     - kcp
-    singular: kindclusterpool
+    singular: clusterpool
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -25,7 +25,7 @@ spec:
     name: v2alpha1
     schema:
       openAPIV3Schema:
-        description: KindClusterPool is the Schema for the kindclusterpools API
+        description: ClusterPool is the Schema for the clusterpools API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -40,10 +40,13 @@ spec:
           metadata:
             type: object
           spec:
-            description: KindClusterPoolSpec defines the desired state of KindClusterPool
+            description: ClusterPoolSpec defines the desired state of ClusterPool
             properties:
-              specificaiton:
-                additionalProperties:
+              maxClusters:
+                format: int32
+                type: integer
+              specifications:
+                items:
                   properties:
                     cpuCurrent:
                       format: int32
@@ -53,48 +56,52 @@ spec:
                       type: integer
                     instanceType:
                       type: string
+                    kubernetesVersion:
+                      type: string
+                    kubespherePlugins:
+                      type: string
+                    kubesphereVersion:
+                      type: string
+                    masters:
+                      format: int32
+                      type: integer
                     memoryCurrent:
                       format: int32
                       type: integer
-                    specificationId:
+                    osImageID:
                       type: string
-                    sshKey:
+                    specificationID:
                       type: string
-                    waitToAssignThreshold:
+                    sshKeyID:
+                      type: string
+                    waitToAssign:
+                      format: int32
+                      type: integer
+                    workers:
                       format: int32
                       type: integer
                   type: object
-                type: object
-              targetClusterMaxKindClusterCount:
-                format: int32
-                type: integer
-            required:
-            - specificaiton
-            - targetClusterMaxKindClusterCount
+                type: array
             type: object
           status:
-            description: KindClusterPoolStatus defines the observed state of KindClusterPool
+            description: ClusterPoolStatus defines the observed state of ClusterPool
             properties:
-              specificaitonsStatus:
+              countByPhase:
+                additionalProperties:
+                  format: int32
+                  type: integer
+                type: object
+              specificationStatuses:
                 additionalProperties:
                   additionalProperties:
-                    properties:
-                      assigned:
-                        items:
-                          type: string
-                        type: array
-                      notAssigned:
-                        items:
-                          type: string
-                        type: array
-                    required:
-                    - assigned
-                    - notAssigned
-                    type: object
+                    items:
+                      type: string
+                    type: array
                   type: object
                 type: object
-            required:
-            - specificaitonsStatus
+              totalCount:
+                format: int32
+                type: integer
             type: object
         type: object
     served: true
