@@ -1,9 +1,9 @@
 package v2alpha1
 
 const (
-	ClusterNameLabel   = "kubeocean.kubesphere.io/cluster-name"
-	ClusterIDLabel     = "kubeocean.kubesphere.io/cluster-id"
-	ClusterUserIDLabel = "kubeocean.kubesphere.io/user-id"
+	ClusterNameLabel = "kubeocean.kubesphere.io/cluster-name"
+	ClusterIDLabel   = "kubeocean.kubesphere.io/ks-cloud-cluster-id"
+	UserIDLabel      = "kubeocean.kubesphere.io/ks-cloud-user-id"
 	//
 	// DolphinClusterNameLabel          = "kubeocean.kubesphere.io/dolphincluster"
 	// DolphinClusterIDLabel            = "kubeocean.kubesphere.io/dolphincluster-id"

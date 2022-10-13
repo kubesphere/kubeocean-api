@@ -20,3 +20,5 @@ package v2alpha1
 type ClusterExpansion interface{}
 
 type ClusterPoolExpansion interface{}
+
+type ExposedServiceExpansion interface{}

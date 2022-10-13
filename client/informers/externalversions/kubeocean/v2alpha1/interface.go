@@ -27,6 +27,8 @@ type Interface interface {
 	Clusters() ClusterInformer
 	// ClusterPools returns a ClusterPoolInformer.
 	ClusterPools() ClusterPoolInformer
+	// ExposedServices returns a ExposedServiceInformer.
+	ExposedServices() ExposedServiceInformer
 }
 
 type version struct {
@@ -48,4 +50,9 @@ func (v *version) Clusters() ClusterInformer {
 // ClusterPools returns a ClusterPoolInformer.
 func (v *version) ClusterPools() ClusterPoolInformer {
 	return &clusterPoolInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+}
+
+// ExposedServices returns a ExposedServiceInformer.
+func (v *version) ExposedServices() ExposedServiceInformer {
+	return &exposedServiceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

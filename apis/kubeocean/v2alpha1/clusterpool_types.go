@@ -49,7 +49,7 @@ type ClusterPoolStatus struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
-//+kubebuilder:resource:scope=Cluster,shortName=kcp
+//+kubebuilder:resource:scope=Cluster,shortName=cp
 //+kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ClusterPool is the Schema for the clusterpools API

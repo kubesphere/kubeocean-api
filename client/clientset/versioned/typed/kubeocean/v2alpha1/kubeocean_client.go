@@ -29,6 +29,7 @@ type KubeoceanV2alpha1Interface interface {
 	RESTClient() rest.Interface
 	ClustersGetter
 	ClusterPoolsGetter
+	ExposedServicesGetter
 }
 
 // KubeoceanV2alpha1Client is used to interact with features provided by the kubeocean.kubesphere.io group.
@@ -42,6 +43,10 @@ func (c *KubeoceanV2alpha1Client) Clusters() ClusterInterface {
 
 func (c *KubeoceanV2alpha1Client) ClusterPools() ClusterPoolInterface {
 	return newClusterPools(c)
+}
+
+func (c *KubeoceanV2alpha1Client) ExposedServices(namespace string) ExposedServiceInterface {
+	return newExposedServices(c, namespace)
 }
 
 // NewForConfig creates a new KubeoceanV2alpha1Client for the given config.

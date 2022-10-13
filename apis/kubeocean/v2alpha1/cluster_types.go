@@ -29,9 +29,9 @@ type SpecificationID string
 type OsImageID string
 
 type InstanceSpec struct {
-	InstanceType  qingcloud.InstanceType `json:"instanceType,omitempty"`
-	CpuCurrent    int32                  `json:"cpuCurrent,omitempty"`
-	MemoryCurrent int32                  `json:"memoryCurrent,omitempty"`
+	InstanceType qingcloud.InstanceType `json:"instanceType,omitempty"`
+	Cpu          int32                  `json:"cpu,omitempty"`    // in cores
+	Memory       int32                  `json:"memory,omitempty"` // in MB
 }
 
 type OsImageSpec struct {

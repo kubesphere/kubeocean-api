@@ -35,6 +35,10 @@ func (c *FakeKubeoceanV2alpha1) ClusterPools() v2alpha1.ClusterPoolInterface {
 	return &FakeClusterPools{c}
 }
 
+func (c *FakeKubeoceanV2alpha1) ExposedServices(namespace string) v2alpha1.ExposedServiceInterface {
+	return &FakeExposedServices{c, namespace}
+}
+
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeKubeoceanV2alpha1) RESTClient() rest.Interface {

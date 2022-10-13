@@ -14,7 +14,7 @@ spec:
     listKind: ClusterPoolList
     plural: clusterpools
     shortNames:
-    - kcp
+    - cp
     singular: clusterpool
   scope: Cluster
   versions:
@@ -48,7 +48,7 @@ spec:
               specifications:
                 items:
                   properties:
-                    cpuCurrent:
+                    cpu:
                       format: int32
                       type: integer
                     diskSize:
@@ -65,7 +65,7 @@ spec:
                     masters:
                       format: int32
                       type: integer
-                    memoryCurrent:
+                    memory:
                       format: int32
                       type: integer
                     osImageID:

@@ -24,3 +24,11 @@ type ClusterListerExpansion interface{}
 // ClusterPoolListerExpansion allows custom methods to be added to
 // ClusterPoolLister.
 type ClusterPoolListerExpansion interface{}
+
+// ExposedServiceListerExpansion allows custom methods to be added to
+// ExposedServiceLister.
+type ExposedServiceListerExpansion interface{}
+
+// ExposedServiceNamespaceListerExpansion allows custom methods to be added to
+// ExposedServiceNamespaceLister.
+type ExposedServiceNamespaceListerExpansion interface{}
