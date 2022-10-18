@@ -59,8 +59,9 @@ type ExposedServiceStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	VisitAddr   string `json:"visitAddr,omitempty"`
-	IngressName string `json:"ingressName,omitempty"`
+	VisitAddr             string `json:"visitAddr,omitempty"`
+	IngressName           string `json:"ingressName,omitempty"`
+	InnerServiceClusterIP string `json:"InnerServiceClusterIP,omitempty"`
 }
 
 // +genclient

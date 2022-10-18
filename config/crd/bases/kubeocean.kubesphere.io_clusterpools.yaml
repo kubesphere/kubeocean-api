@@ -48,14 +48,20 @@ spec:
               specifications:
                 items:
                   properties:
-                    cpu:
-                      format: int32
-                      type: integer
                     diskSize:
                       format: int32
                       type: integer
-                    instanceType:
-                      type: string
+                    instance:
+                      properties:
+                        cpu:
+                          format: int32
+                          type: integer
+                        instanceType:
+                          type: string
+                        memory:
+                          format: int32
+                          type: integer
+                      type: object
                     kubernetesVersion:
                       type: string
                     kubespherePlugins:
@@ -65,11 +71,26 @@ spec:
                     masters:
                       format: int32
                       type: integer
-                    memory:
-                      format: int32
-                      type: integer
-                    osImageID:
-                      type: string
+                    osImage:
+                      properties:
+                        diskSize:
+                          format: int32
+                          type: integer
+                        kubernetesVersion:
+                          type: string
+                        kubespherePlugins:
+                          type: string
+                        kubesphereVersion:
+                          type: string
+                        masters:
+                          format: int32
+                          type: integer
+                        osImageID:
+                          type: string
+                        workers:
+                          format: int32
+                          type: integer
+                      type: object
                     specificationID:
                       type: string
                     sshKeyID:

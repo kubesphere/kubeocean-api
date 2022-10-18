@@ -17,10 +17,10 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .spec.instanceType
+    - jsonPath: .spec.instance.instanceType
       name: InstanceType
       type: string
-    - jsonPath: .spec.osImageID
+    - jsonPath: .spec.osImage.osImageID
       name: OSImageID
       type: string
     - jsonPath: .spec.specificationID
@@ -28,6 +28,12 @@ spec:
       type: string
     - jsonPath: .status.phase
       name: Phase
+      type: string
+    - jsonPath: .status.kubespherePhase
+      name: KubespherePhase
+      type: string
+    - jsonPath: .status.kubernetesPhase
+      name: KubernetesPhase
       type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
@@ -52,14 +58,20 @@ spec:
           spec:
             description: ClusterSpec defines the desired state of Cluster
             properties:
-              cpu:
-                format: int32
-                type: integer
               diskSize:
                 format: int32
                 type: integer
-              instanceType:
-                type: string
+              instance:
+                properties:
+                  cpu:
+                    format: int32
+                    type: integer
+                  instanceType:
+                    type: string
+                  memory:
+                    format: int32
+                    type: integer
+                type: object
               kubernetesVersion:
                 type: string
               kubespherePlugins:
@@ -69,11 +81,26 @@ spec:
               masters:
                 format: int32
                 type: integer
-              memory:
-                format: int32
-                type: integer
-              osImageID:
-                type: string
+              osImage:
+                properties:
+                  diskSize:
+                    format: int32
+                    type: integer
+                  kubernetesVersion:
+                    type: string
+                  kubespherePlugins:
+                    type: string
+                  kubesphereVersion:
+                    type: string
+                  masters:
+                    format: int32
+                    type: integer
+                  osImageID:
+                    type: string
+                  workers:
+                    format: int32
+                    type: integer
+                type: object
               specificationID:
                 type: string
               sshKeyID:
@@ -85,7 +112,15 @@ spec:
           status:
             description: ClusterStatus defines the observed state of Cluster
             properties:
+              apiServerAddress:
+                type: string
               kubeconfig:
+                type: string
+              kubernetesPhase:
+                type: string
+              kubesphereConsoleAddress:
+                type: string
+              kubespherePhase:
                 type: string
               phase:
                 type: string

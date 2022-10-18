@@ -82,6 +82,8 @@ spec:
           status:
             description: ExposedServiceStatus defines the observed state of ExposedService
             properties:
+              InnerServiceClusterIP:
+                type: string
               ingressName:
                 type: string
               visitAddr:

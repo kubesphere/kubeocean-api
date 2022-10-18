@@ -34,37 +34,62 @@ type InstanceSpec struct {
 	Memory       int32                  `json:"memory,omitempty"` // in MB
 }
 
+type NodeSpec struct {
+	DiskSize          int32  `json:"diskSize,omitempty"`
+	KubernetesVersion string `json:"kubernetesVersion,omitempty"`
+	KubesphereVersion string `json:"kubesphereVersion,omitempty"`
+	KubespherePlugins string `json:"kubespherePlugins,omitempty"` // minimal/full/etc.
+	Masters           int32  `json:"masters,omitempty"`
+	Workers           int32  `json:"workers,omitempty"`
+}
+
 type OsImageSpec struct {
-	OsImageID         OsImageID `json:"osImageID,omitempty"`
-	SshKeyID          string    `json:"sshKeyID,omitempty"`
-	DiskSize          int32     `json:"diskSize,omitempty"`
-	KubernetesVersion string    `json:"kubernetesVersion,omitempty"`
-	KubesphereVersion string    `json:"kubesphereVersion,omitempty"`
-	KubespherePlugins string    `json:"kubespherePlugins,omitempty"` // minimal/full/etc.
-	Masters           int32     `json:"masters,omitempty"`
-	Workers           int32     `json:"workers,omitempty"`
+	OsImageID OsImageID `json:"osImageID,omitempty"`
+	NodeSpec  `json:",inline"`
 }
 
 // ClusterSpec defines the desired state of Cluster
 type ClusterSpec struct {
-	OsImageSpec     `json:",inline"`
-	InstanceSpec    `json:",inline"`
 	SpecificationID SpecificationID `json:"specificationID,omitempty"`
+	SshKeyID        string          `json:"sshKeyID,omitempty"`
+	OsImage         OsImageSpec     `json:"osImage,omitempty"`
+	Instance        InstanceSpec    `json:"instance,omitempty"`
+
+	// NodeSpec is optional and can be overridden by the same properties in OsImage
+	NodeSpec `json:",inline"`
 }
 
 type ClusterPhase string
 
 const (
-	ClusterPhaseCreating   ClusterPhase = "creating"
-	ClusterPhaseAssigned   ClusterPhase = "assigned"
-	ClusterPhaseUnassigned ClusterPhase = "unassigned"
-	ClusterPhaseDeleting   ClusterPhase = "deleting"
+	ClusterPhaseCreating   ClusterPhase = "creating"   // cluster is being created
+	ClusterPhaseAssigned   ClusterPhase = "assigned"   // cluster is ready and has been assigned to user
+	ClusterPhaseUnassigned ClusterPhase = "unassigned" // cluster is ready and has not been assigned
+	ClusterPhaseDeleting   ClusterPhase = "deleting"   // cluster is being deleted
+)
+
+type KubespherePhase string
+
+const (
+	KubespherePhaseInstalling KubespherePhase = "installing"
+	KubespherePhaseInstalled  KubespherePhase = "installed"
+)
+
+type KubernetesPhase string
+
+const (
+	KubernetesPhaseInstalling KubernetesPhase = "installing"
+	KubernetesPhaseInstalled  KubernetesPhase = "installed"
 )
 
 // ClusterStatus defines the observed state of Cluster
 type ClusterStatus struct {
-	Phase      ClusterPhase `json:"phase,omitempty"`
-	Kubeconfig string       `json:"kubeconfig,omitempty"`
+	Phase                    ClusterPhase    `json:"phase,omitempty"`
+	Kubeconfig               string          `json:"kubeconfig,omitempty"`
+	ApiServerAddress         string          `json:"apiServerAddress,omitempty"`
+	KubesphereConsoleAddress string          `json:"kubesphereConsoleAddress,omitempty"`
+	KubespherePhase          KubespherePhase `json:"kubespherePhase,omitempty"`
+	KubernetesPhase          KubernetesPhase `json:"kubernetesPhase,omitempty"`
 }
 
 // +genclient
@@ -73,10 +98,12 @@ type ClusterStatus struct {
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster
-// +kubebuilder:printcolumn:JSONPath=".spec.instanceType",name=InstanceType,type=string
-// +kubebuilder:printcolumn:JSONPath=".spec.osImageID",name=OSImageID,type=string
+// +kubebuilder:printcolumn:JSONPath=".spec.instance.instanceType",name=InstanceType,type=string
+// +kubebuilder:printcolumn:JSONPath=".spec.osImage.osImageID",name=OSImageID,type=string
 // +kubebuilder:printcolumn:JSONPath=".spec.specificationID",name=SpecificationID,type=string
 // +kubebuilder:printcolumn:JSONPath=".status.phase",name=Phase,type=string
+// +kubebuilder:printcolumn:JSONPath=".status.kubespherePhase",name=KubespherePhase,type=string
+// +kubebuilder:printcolumn:JSONPath=".status.kubernetesPhase",name=KubernetesPhase,type=string
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // Cluster is the Schema for the clusters API
