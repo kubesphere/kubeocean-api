@@ -31,58 +31,59 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// KindClusterInformer provides access to a shared informer and lister for
-// KindClusters.
-type KindClusterInformer interface {
+// ExposedServiceInformer provides access to a shared informer and lister for
+// ExposedServices.
+type ExposedServiceInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v2alpha1.KindClusterLister
+	Lister() v2alpha1.ExposedServiceLister
 }
 
-type kindClusterInformer struct {
+type exposedServiceInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
+	namespace        string
 }
 
-// NewKindClusterInformer constructs a new informer for KindCluster type.
+// NewExposedServiceInformer constructs a new informer for ExposedService type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewKindClusterInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredKindClusterInformer(client, resyncPeriod, indexers, nil)
+func NewExposedServiceInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredExposedServiceInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredKindClusterInformer constructs a new informer for KindCluster type.
+// NewFilteredExposedServiceInformer constructs a new informer for ExposedService type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredKindClusterInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredExposedServiceInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.KubeoceanV2alpha1().KindClusters().List(context.TODO(), options)
+				return client.KubeoceanV2alpha1().ExposedServices(namespace).List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.KubeoceanV2alpha1().KindClusters().Watch(context.TODO(), options)
+				return client.KubeoceanV2alpha1().ExposedServices(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&kubeoceanv2alpha1.KindCluster{},
+		&kubeoceanv2alpha1.ExposedService{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *kindClusterInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredKindClusterInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *exposedServiceInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredExposedServiceInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *kindClusterInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&kubeoceanv2alpha1.KindCluster{}, f.defaultInformer)
+func (f *exposedServiceInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&kubeoceanv2alpha1.ExposedService{}, f.defaultInformer)
 }
 
-func (f *kindClusterInformer) Lister() v2alpha1.KindClusterLister {
-	return v2alpha1.NewKindClusterLister(f.Informer().GetIndexer())
+func (f *exposedServiceInformer) Lister() v2alpha1.ExposedServiceLister {
+	return v2alpha1.NewExposedServiceLister(f.Informer().GetIndexer())
 }

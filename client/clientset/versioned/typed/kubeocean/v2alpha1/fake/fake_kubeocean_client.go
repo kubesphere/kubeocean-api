@@ -27,12 +27,16 @@ type FakeKubeoceanV2alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeKubeoceanV2alpha1) KindClusters() v2alpha1.KindClusterInterface {
-	return &FakeKindClusters{c}
+func (c *FakeKubeoceanV2alpha1) Clusters() v2alpha1.ClusterInterface {
+	return &FakeClusters{c}
 }
 
-func (c *FakeKubeoceanV2alpha1) KindClusterPools() v2alpha1.KindClusterPoolInterface {
-	return &FakeKindClusterPools{c}
+func (c *FakeKubeoceanV2alpha1) ClusterPools() v2alpha1.ClusterPoolInterface {
+	return &FakeClusterPools{c}
+}
+
+func (c *FakeKubeoceanV2alpha1) ExposedServices(namespace string) v2alpha1.ExposedServiceInterface {
+	return &FakeExposedServices{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

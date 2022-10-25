@@ -13,10 +13,32 @@ spec:
     kind: ExposedService
     listKind: ExposedServiceList
     plural: exposedservices
+    shortNames:
+    - es
     singular: exposedservice
   scope: Namespaced
   versions:
-  - name: v2alpha1
+  - additionalPrinterColumns:
+    - description: The target cluster
+      jsonPath: .spec.cluster
+      name: Cluster
+      type: string
+    - description: The target service namespace
+      jsonPath: .spec.service.namespace
+      name: Namespace
+      type: string
+    - description: The target service name
+      jsonPath: .spec.service.name
+      name: Name
+      type: string
+    - description: The target service visit address
+      jsonPath: .status.visitAddr
+      name: VisitAddr
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v2alpha1
     schema:
       openAPIV3Schema:
         description: ExposedService is the Schema for the exposedservices API
@@ -36,13 +58,36 @@ spec:
           spec:
             description: ExposedServiceSpec defines the desired state of ExposedService
             properties:
-              foo:
-                description: Foo is an example field of ExposedService. Edit exposedservice_types.go
-                  to remove/update
+              cluster:
                 type: string
+              ingressClass:
+                description: ingress class name
+                type: string
+              path:
+                description: ingress path, if not set, will use "/"
+                type: string
+              service:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                  port:
+                    format: int32
+                    type: integer
+                  protocol:
+                    type: string
+                type: object
             type: object
           status:
             description: ExposedServiceStatus defines the observed state of ExposedService
+            properties:
+              InnerServiceClusterIP:
+                type: string
+              ingressName:
+                type: string
+              visitAddr:
+                type: string
             type: object
         type: object
     served: true

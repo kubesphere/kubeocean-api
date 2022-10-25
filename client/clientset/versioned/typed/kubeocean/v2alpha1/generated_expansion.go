@@ -17,6 +17,8 @@ limitations under the License.
 
 package v2alpha1
 
-type KindClusterExpansion interface{}
+type ClusterExpansion interface{}
 
-type KindClusterPoolExpansion interface{}
+type ClusterPoolExpansion interface{}
+
+type ExposedServiceExpansion interface{}

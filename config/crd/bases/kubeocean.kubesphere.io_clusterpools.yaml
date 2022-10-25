@@ -1,0 +1,143 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.7.0
+  creationTimestamp: null
+  name: clusterpools.kubeocean.kubesphere.io
+spec:
+  group: kubeocean.kubesphere.io
+  names:
+    kind: ClusterPool
+    listKind: ClusterPoolList
+    plural: clusterpools
+    shortNames:
+    - cp
+    singular: clusterpool
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v2alpha1
+    schema:
+      openAPIV3Schema:
+        description: ClusterPool is the Schema for the clusterpools API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ClusterPoolSpec defines the desired state of ClusterPool
+            properties:
+              maxClusters:
+                format: int32
+                type: integer
+              specifications:
+                items:
+                  properties:
+                    diskSize:
+                      format: int32
+                      type: integer
+                    instance:
+                      properties:
+                        cpu:
+                          format: int32
+                          type: integer
+                        instanceType:
+                          type: string
+                        memory:
+                          format: int32
+                          type: integer
+                      type: object
+                    kubernetesVersion:
+                      type: string
+                    kubespherePlugins:
+                      type: string
+                    kubesphereVersion:
+                      type: string
+                    masters:
+                      format: int32
+                      type: integer
+                    osImage:
+                      properties:
+                        diskSize:
+                          format: int32
+                          type: integer
+                        kubernetesVersion:
+                          type: string
+                        kubespherePlugins:
+                          type: string
+                        kubesphereVersion:
+                          type: string
+                        masters:
+                          format: int32
+                          type: integer
+                        osImageID:
+                          type: string
+                        workers:
+                          format: int32
+                          type: integer
+                      type: object
+                    provisionMethod:
+                      type: string
+                    specificationID:
+                      type: string
+                    sshKeyID:
+                      type: string
+                    tags:
+                      items:
+                        type: string
+                      type: array
+                    waitToAssign:
+                      format: int32
+                      type: integer
+                    workers:
+                      format: int32
+                      type: integer
+                  type: object
+                type: array
+            type: object
+          status:
+            description: ClusterPoolStatus defines the observed state of ClusterPool
+            properties:
+              countByPhase:
+                additionalProperties:
+                  format: int32
+                  type: integer
+                type: object
+              specificationStatuses:
+                additionalProperties:
+                  additionalProperties:
+                    items:
+                      type: string
+                    type: array
+                  type: object
+                type: object
+              totalCount:
+                format: int32
+                type: integer
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

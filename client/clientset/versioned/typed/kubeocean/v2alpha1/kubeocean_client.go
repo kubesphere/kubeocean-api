@@ -27,8 +27,9 @@ import (
 
 type KubeoceanV2alpha1Interface interface {
 	RESTClient() rest.Interface
-	KindClustersGetter
-	KindClusterPoolsGetter
+	ClustersGetter
+	ClusterPoolsGetter
+	ExposedServicesGetter
 }
 
 // KubeoceanV2alpha1Client is used to interact with features provided by the kubeocean.kubesphere.io group.
@@ -36,12 +37,16 @@ type KubeoceanV2alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *KubeoceanV2alpha1Client) KindClusters() KindClusterInterface {
-	return newKindClusters(c)
+func (c *KubeoceanV2alpha1Client) Clusters() ClusterInterface {
+	return newClusters(c)
 }
 
-func (c *KubeoceanV2alpha1Client) KindClusterPools() KindClusterPoolInterface {
-	return newKindClusterPools(c)
+func (c *KubeoceanV2alpha1Client) ClusterPools() ClusterPoolInterface {
+	return newClusterPools(c)
+}
+
+func (c *KubeoceanV2alpha1Client) ExposedServices(namespace string) ExposedServiceInterface {
+	return newExposedServices(c, namespace)
 }
 
 // NewForConfig creates a new KubeoceanV2alpha1Client for the given config.
