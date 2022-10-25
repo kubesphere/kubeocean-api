@@ -48,15 +48,24 @@ type OsImageSpec struct {
 	NodeSpec  `json:",inline"`
 }
 
+type ProvisionMethod string
+
+const (
+	// ProvisionMethodDynamic means dynamically create the cluster
+	ProvisionMethodDynamic ProvisionMethod = "dynamic"
+
+	// ProvisionMethodStatic means boot up cluster from os image, this is the default
+	ProvisionMethodStatic ProvisionMethod = "static"
+)
+
 // ClusterSpec defines the desired state of Cluster
 type ClusterSpec struct {
 	SpecificationID SpecificationID `json:"specificationID,omitempty"`
 	SshKeyID        string          `json:"sshKeyID,omitempty"`
 	OsImage         OsImageSpec     `json:"osImage,omitempty"`
 	Instance        InstanceSpec    `json:"instance,omitempty"`
-
-	// NodeSpec is optional and can be overridden by the same properties in OsImage
-	NodeSpec `json:",inline"`
+	ProvisionMethod ProvisionMethod `json:"provisionMethod,omitempty"`
+	NodeSpec        `json:",inline"`
 }
 
 type ClusterPhase string

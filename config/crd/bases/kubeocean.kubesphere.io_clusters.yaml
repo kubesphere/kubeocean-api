@@ -101,6 +101,8 @@ spec:
                     format: int32
                     type: integer
                 type: object
+              provisionMethod:
+                type: string
               specificationID:
                 type: string
               sshKeyID:

@@ -91,10 +91,16 @@ spec:
                           format: int32
                           type: integer
                       type: object
+                    provisionMethod:
+                      type: string
                     specificationID:
                       type: string
                     sshKeyID:
                       type: string
+                    tags:
+                      items:
+                        type: string
+                      type: array
                     waitToAssign:
                       format: int32
                       type: integer

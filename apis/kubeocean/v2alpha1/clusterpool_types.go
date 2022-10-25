@@ -25,7 +25,8 @@ import (
 
 type Specification struct {
 	ClusterSpec  `json:",inline"`
-	WaitToAssign int32 `json:"waitToAssign,omitempty"`
+	WaitToAssign int32    `json:"waitToAssign,omitempty"`
+	Tags         []string `json:"tags,omitempty"`
 }
 
 // ClusterPoolSpec defines the desired state of ClusterPool
