@@ -5,7 +5,7 @@ const (
 	ClusterIDLabel   = "kubeocean.kubesphere.io/ks-cloud-cluster-id"
 	UserIDLabel      = "kubeocean.kubesphere.io/ks-cloud-user-id"
 
-	TagSubscriptionPrefix     = "subscription_"
+	TagSubscriptionPrefix     = "subscription-"
 	TagSubscriptionBasic      = TagSubscriptionPrefix + "basic"
 	TagSubscriptionStandard   = TagSubscriptionPrefix + "standard"
 	TagSubscriptionEnterprise = TagSubscriptionPrefix + "enterprise"
